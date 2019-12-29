@@ -15,5 +15,5 @@ buildName(numOfItems, prefix)
 A character with the strings is returned. These strings use the prefix that is mentioned in the argument "prefix"
 }
 \description{
-Build Dynamic Strings
+Builds strings that could be further used as identifiers.This is an internal function and is currently not exported in the package.
 }

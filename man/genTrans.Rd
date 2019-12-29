@@ -4,14 +4,18 @@
 \alias{genTrans}
 \title{Build Transaction Data}
 \usage{
-genTrans(cycles, trend, transactions)
+genTrans(cycles, trend, transactions, spike, outliers)
 }
 \arguments{
 \item{cycles}{A string.}
 
-\item{trend}{A number.}
+\item{trend}{A number. The value is either 1 or -1. Value 1 signifies upward trend and value -1 signifies downward trend.}
 
 \item{transactions}{A number.}
+
+\item{spike}{A number. This defines the month where the data distribution has the highest value. The number ranges from 1 to 12 representing the 12 months in the order of January to December.}
+
+\item{outliers}{A number. The value is either 1 or 0. Value 1 builds outliers and value 0 does not build outliers.}
 }
 \value{
 A dataframe with day number and count of transactions on that day
@@ -20,6 +24,6 @@ A dataframe with day number and count of transactions on that day
 Build Transaction Data
 }
 \examples{
-df <- genTrans("y", 1,10000)
-df <- genTrans("q", -1,32000)
+df <- genTrans(cycles = "y", trend = 1, transactions = 10000, spike = 10, outliers = 0)
+df <- genTrans(cycles = "q", trend = -1, transactions = 32000, spike = 12, outliers = 1)
 }

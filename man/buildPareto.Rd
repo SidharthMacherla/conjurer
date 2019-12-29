@@ -17,5 +17,5 @@ buildPareto(factor1, factor2, pareto)
 A dataframe with factor 1 and factor 2 as columns. Based on the pareto arguments passed, the column factor 1 is mapped to factor 2.
 }
 \description{
-Map Factors Based on Pareto Arguments
+Maps a factor to another factor in a one to many relationship following pareto principle. For example, 80 percent of transactions can be mapped to 20 percent of customers.
 }

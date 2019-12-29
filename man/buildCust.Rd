@@ -13,9 +13,9 @@ buildCust(numOfCust)
 A character with a unique customer identifiers
 }
 \description{
-Build Unique Customer Identifier
+Builds a customer identifier. This is often used as a primary key of the customer dim table in databases.
 }
 \examples{
-df <- buildCust(1000)
-df <- buildCust(223)
+df <- buildCust(numOfCust = 1000)
+df <- buildCust(numOfCust = 223)
 }

@@ -1,8 +1,15 @@
-#' Map Factors Based on Pareto Arguments
+#' @title Map Factors Based on Pareto Arguments
+#' @description Maps a factor to another factor in a one to many relationship following pareto principle. For example, 80 percent of transactions can be mapped to 20 percent of customers.
 #' @param factor1 A factor.
 #' @param factor2 A factor.
 #' @param pareto A vector of 2 numbers.
 #' @return A dataframe with factor 1 and factor 2 as columns. Based on the pareto arguments passed, the column factor 1 is mapped to factor 2.
+#' @example
+#' customers <- LETTERS[seq( from = 1, to = 10 )]
+#' products <- seq(1:100)
+#' df <- buildPareto(factor1 = customers, factor2 = products)
+
+#' @export
 buildPareto <- function(factor1, factor2, pareto)
 {
   #Exception handling.

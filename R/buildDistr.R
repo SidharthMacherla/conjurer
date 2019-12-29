@@ -1,8 +1,9 @@
-#' Build Data Distribution
-#' @param st A number
-#' @param en A number.
-#' @param cycles A string.
-#' @param trend A number.
+#' @title Build Data Distribution
+#' @description Builds the distribution of data that is further used by other functions. For example, function 'genTrans' uses this function to build the data distributions necessary. This function uses trignometry based functions to generate data. This is an internal function and is currently not exported in the package.
+#' @param st A number. This defines the starting value of the number of data points.
+#' @param en A number. This defines the ending value of the number of data points.
+#' @param cycles A string. This represents the cyclicality of the data distribution.
+#' @param trend A number. This defines the trend of data distribution i.e if the data has a positive slope or a negative slope.
 #' @return A dataframe with data distribution is returned.
 buildDistr <- function(st, en, cycles, trend)
 {

@@ -7,19 +7,19 @@
 buildProd(numOfProd, minPrice, maxPrice)
 }
 \arguments{
-\item{numOfProd}{A number.}
+\item{numOfProd}{A number. This defines the number of unique products.}
 
-\item{minPrice}{A number.}
+\item{minPrice}{A number. This defines the lower threshold of the product price.}
 
-\item{maxPrice}{A number.}
+\item{maxPrice}{A number. This defines the lower threshold of the product price.}
 }
 \value{
-A character with product identifier and price
+A character with product identifier and price.
 }
 \description{
-Build Product Data
+Builds unique product identifier and price. The price of the product is generated randomly within the minimum and the maximum range provided as input.
 }
 \examples{
-df <- buildProd(1000, 5, 100)
-df <- buildProd(29,3,50)
+df <- buildProd(numOfProd = 1000, minPrice = 5, maxPrice = 100)
+df <- buildProd(numOfProd = 29, minPrice = 3, maxPrice = 50)
 }

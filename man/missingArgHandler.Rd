@@ -7,13 +7,13 @@
 missingArgHandler(argMissed, argDefault)
 }
 \arguments{
-\item{argMissed}{A variable.}
+\item{argMissed}{A variable. This is the argument that needs to be handled.}
 
-\item{argDefault}{A variable.}
+\item{argDefault}{A variable. This is the default value.}
 }
 \value{
 The default value of the missing argument
 }
 \description{
-Handle Missing Arguments in Function
+Replaces the missing argument with the default value. This is an internal function and is currently not exported in the package.
 }

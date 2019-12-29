@@ -7,17 +7,17 @@
 buildDistr(st, en, cycles, trend)
 }
 \arguments{
-\item{st}{A number}
+\item{st}{A number. This defines the starting value of the number of data points.}
 
-\item{en}{A number.}
+\item{en}{A number. This defines the ending value of the number of data points.}
 
-\item{cycles}{A string.}
+\item{cycles}{A string. This represents the cyclicality of the data distribution.}
 
-\item{trend}{A number.}
+\item{trend}{A number. This defines the trend of data distribution i.e if the data has a positive slope or a negative slope.}
 }
 \value{
 A dataframe with data distribution is returned.
 }
 \description{
-Build Data Distribution
+Builds the distribution of data that is further used by other functions. For example, function 'genTrans' uses this function to build the data distributions necessary. This function uses trignometry based functions to generate data. This is an internal function and is currently not exported in the package.
 }

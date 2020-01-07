@@ -7,15 +7,18 @@
 buildPareto(factor1, factor2, pareto)
 }
 \arguments{
-\item{factor1}{A factor.}
+\item{factor1}{A factor. This factor is mapped to factor2 as given in the details section.}
 
-\item{factor2}{A factor.}
+\item{factor2}{A factor. This factor is mapped to factor1 as given in the details section.}
 
-\item{pareto}{A vector of 2 numbers.}
+\item{pareto}{This defines the percentage allocation and is a numeric data type. This argument takes the form of c(x,y) where x and y are numeric and their sum is 100. If we set Pareto to c(80,20), it then allocates 80 percent of factor1 to 20 percent of factor 2. This is based on a well-known concept of the Pareto principle.}
 }
 \value{
-A dataframe with factor 1 and factor 2 as columns. Based on the pareto arguments passed, the column factor 1 is mapped to factor 2.
+A data frame with factor 1 and factor 2 as columns. Based on the Pareto arguments passed, column factor 1 is mapped to factor 2.
 }
 \description{
-Map Factors Based on Pareto Arguments
+Maps a factor to another factor in a one to many relationship following Pareto principle. For example, 80 percent of transactions can be mapped to 20 percent of customers.
+}
+\details{
+This function is used to map one factor to another based on the Pareto argument supplied. If factor1 is a factor of customer identifiers, factor2 is a factor of transactions and Pareto is set to c(80,20), then 80 percent of customer identifiers will be mapped to 20 percent of transactions and vice versa.
 }

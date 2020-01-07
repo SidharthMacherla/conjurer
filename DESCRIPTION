@@ -1,14 +1,18 @@
 Package: conjurer
 Type: Package
-Title: Parametric Method to Generating Synthetic Data
-Version: 0.0.1
+Title: A Parametric Method for Generating Synthetic Data
+Version: 1.0.0
+Date: 2020-01-07
 Authors@R: person("Sidharth", "Macherla", email = "msidharthrasik@gmail.com",
-                  role = c("aut", "cre"))
-Description: A tool for generating synthetic data. The key objective of this package is to aid developers in generating synthetic data with a special focus on visualization. 
-    There are instances when developers build an analytical framework as a proof of concept or a working prototype. However, in order to demonstrate the capability of this framework, one needs to have data. Furthermore, this data needs to be as realistic as possible. This package attempts to provide the tools needed to build such a synthetic data.
+                  role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4825-2026"))
+Description: conjurer is a package that helps in building synthetic data across multiple domains. This package also provides flexibility to control data distribution to make it relevant to many industry examples.
 License: MIT + file LICENSE
 URL: https://github.com/SidharthMacherla/conjurer
 BugReports: https://github.com/SidharthMacherla/conjurer/issues
 Encoding: UTF-8
 LazyData: FALSE
 RoxygenNote: 7.0.2.9000
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

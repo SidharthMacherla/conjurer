@@ -1,9 +1,10 @@
 #' @title Map Factors Based on Pareto Arguments
-#' @description Maps a factor to another factor in a one to many relationship following pareto principle. For example, 80 percent of transactions can be mapped to 20 percent of customers.
-#' @param factor1 A factor.
-#' @param factor2 A factor.
-#' @param pareto A vector of 2 numbers.
-#' @return A dataframe with factor 1 and factor 2 as columns. Based on the pareto arguments passed, the column factor 1 is mapped to factor 2.
+#' @description Maps a factor to another factor in a one to many relationship following Pareto principle. For example, 80 percent of transactions can be mapped to 20 percent of customers.
+#' @param factor1 A factor. This factor is mapped to factor2 as given in the details section.
+#' @param factor2 A factor. This factor is mapped to factor1 as given in the details section.
+#' @param pareto This defines the percentage allocation and is a numeric data type. This argument takes the form of c(x,y) where x and y are numeric and their sum is 100. If we set Pareto to c(80,20), it then allocates 80 percent of factor1 to 20 percent of factor 2. This is based on a well-known concept of the Pareto principle.
+#' @details This function is used to map one factor to another based on the Pareto argument supplied. If factor1 is a factor of customer identifiers, factor2 is a factor of transactions and Pareto is set to c(80,20), then 80 percent of customer identifiers will be mapped to 20 percent of transactions and vice versa.
+#' @return A data frame with factor 1 and factor 2 as columns. Based on the Pareto arguments passed, column factor 1 is mapped to factor 2.
 #' @example
 #' customers <- LETTERS[seq( from = 1, to = 10 )]
 #' products <- seq(1:100)

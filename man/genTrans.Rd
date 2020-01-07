@@ -7,15 +7,20 @@
 genTrans(cycles, trend, transactions, spike, outliers)
 }
 \arguments{
-\item{cycles}{A string.}
+\item{cycles}{This represents the cyclicality of data. It can take the following values
+\enumerate{
+\item "y". If cycles is set to the value "y", it means that there is only one instance of a high number of transactions during the entire year. This is a very common situation for some retail clients where the highest number of sales are during the holiday period in December.
+\item "q". If cycles is set to the value "q", it means that there are 4 instances of a high number of transactions. This is generally noticed in the financial services industry where the financial statements are revised every quarter and have an impact on the equity transactions in the secondary market.
+\item "m". If cycles is set to the value "m", it means that there are 12 instances of a high number of transactions for a year. This means that the number of transactions increases once every month and then subside for the rest of the month.
+}}
 
-\item{trend}{A number. The value is either 1 or -1. Value 1 signifies upward trend and value -1 signifies downward trend.}
+\item{trend}{A number. This represents the slope of data distribution. It can take a value of 1 or -1. If the trend is set to value 1, then the aggregated monthly transactions will exhibit an upward trend from January to December and vice versa if it is set to -1.}
 
-\item{transactions}{A number.}
+\item{transactions}{A number. This represents the number of transactions to be generated.}
 
-\item{spike}{A number. This defines the month where the data distribution has the highest value. The number ranges from 1 to 12 representing the 12 months in the order of January to December.}
+\item{spike}{A number. This represents the seasonality of data. It can take any value from 1 to 12. These numbers represent months in a year, from January to December respectively. For example, if the spike is set to 12, it means that December has the highest number of transactions.}
 
-\item{outliers}{A number. The value is either 1 or 0. Value 1 builds outliers and value 0 does not build outliers.}
+\item{outliers}{A number. This signifies the presence of outliers. If set to value 1, then outliers are generated randomly. If set to value 0, then no outliers are generated. The presence of outliers is a very common occurrence and hence setting the outliers to 1 is recommended. However, there are instances where outliers are not needed. For example, if the objective of data generation is solely for visualization purposes then outliers may not be needed.}
 }
 \value{
 A dataframe with day number and count of transactions on that day

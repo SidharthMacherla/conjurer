@@ -1,7 +1,7 @@
 #' @title Build Spikes in the Data Distribution
-#' @description Builds spikes in the data distribution. For example, in retail industry transactions are generally higher during the holiday season such as December.
-#' @param distr numeric.
-#' @param spike A number. This defines the month where the data distribution has the highest value. The number ranges from 1 to 12 representing the 12 months in the order of January to December. This is an internal function and is currently not exported in the package.
+#' @description Builds spikes in the data distribution. For example, in retail industry transactions are generally higher during the holiday season such as December. This function is used to set the same.
+#' @param distr numeric vector. This is the input vector for which the spike value needs to be set.
+#' @param spike A number. This represents the seasonality of data. It can take any value from 1 to 12. These numbers represent months in a year, from January to December respectively. For example, if the spike is set to 12, it means that December has the highest number of transactions. This is an internal function and is currently not exported in the package.
 #' @return A numeric vector reordered
 buildSpike <- function(distr, spike)
 {

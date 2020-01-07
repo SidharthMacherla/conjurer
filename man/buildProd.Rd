@@ -9,15 +9,18 @@ buildProd(numOfProd, minPrice, maxPrice)
 \arguments{
 \item{numOfProd}{A number. This defines the number of unique products.}
 
-\item{minPrice}{A number. This defines the lower threshold of the product price.}
+\item{minPrice}{A number. This is the minimum value of the product's price range.}
 
-\item{maxPrice}{A number. This defines the lower threshold of the product price.}
+\item{maxPrice}{A number. This is the maximum value of the product's price range.}
 }
 \value{
 A character with product identifier and price.
 }
 \description{
-Builds unique product identifier and price. The price of the product is generated randomly within the minimum and the maximum range provided as input.
+Builds a unique product identifier and price. The price of the product is generated randomly within the minimum and the maximum range provided as input.
+}
+\details{
+A product ID is alphanumeric with prefix "sku" which signifies a stock keeping unit. This prefix is followed by a numeric ranging from 1 and extending to the number of products provided as the argument within the function. For example, if there are 10 products, then the product ID will range from sku01 to sku10. This ensures that the product ID is always of the same length. For these product IDs, the product price will be within the range of minPrice and maxPrice arguments.
 }
 \examples{
 df <- buildProd(numOfProd = 1000, minPrice = 5, maxPrice = 100)

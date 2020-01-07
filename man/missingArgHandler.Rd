@@ -7,13 +7,16 @@
 missingArgHandler(argMissed, argDefault)
 }
 \arguments{
-\item{argMissed}{A variable. This is the argument that needs to be handled.}
+\item{argMissed}{This is the argument that needs to be handled.}
 
-\item{argDefault}{A variable. This is the default value.}
+\item{argDefault}{This is the default value of the argument that is missing in the function called.}
 }
 \value{
-The default value of the missing argument
+The default value of the missing argument.
 }
 \description{
 Replaces the missing argument with the default value. This is an internal function and is currently not exported in the package.
+}
+\details{
+This function plays the role of error handler by setting the default values of the arguments when a function is called without specifying any arguments.
 }

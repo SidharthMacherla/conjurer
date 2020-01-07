@@ -1,8 +1,8 @@
 Package: conjurer
 Type: Package
-Title: Parametric Method to Generating Synthetic Data
+Title: A Parametric Method for Generating Synthetic Data
 Version: 1.0.0
-Date: 2020-01-02
+Date: 2020-01-07
 Authors@R: person("Sidharth", "Macherla", email = "msidharthrasik@gmail.com",
                   role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4825-2026"))
 Description: conjurer is a package that helps in building synthetic data across multiple domains. This package also provides flexibility to control data distribution to make it relevant to many industry examples.

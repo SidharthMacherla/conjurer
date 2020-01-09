@@ -1,3 +1,4 @@
+[![](https://cranlogs.r-pkg.org/badges/conjurer)](https://cran.r-project.org/package=conjurer)
 # Documentation
 conjurer: An R Package to build synthetic data
 

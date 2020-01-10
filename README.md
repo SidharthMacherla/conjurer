@@ -13,7 +13,7 @@ Data science applications need data to prototype and demonstrate to potential cl
 Data across multiple domains are known to exhibit some form of seasonality, cyclicality and trend. Although there are synthetic data generation packages currently available, they focus primarily on synthetic versions of microdata containing confidential information or for machine learning purposes. There is a need for a more generic synthetic data generation package that helps for multiple purposes such as forecasting, customer segmentation, insight generation etc. This package **conjurer** helps in generating such synthetic data.
 
 # Installation instructions
-Firstly, install R package from [here](https://cran.r-project.org/bin/windows/base/old/3.5.3/)
+Firstly, install R from [here](https://cloud.r-project.org/)
 
 From the R console, install the package by using the following code
 ``` R

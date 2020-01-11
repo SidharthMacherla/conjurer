@@ -20,5 +20,6 @@ To suggest new features to the package, please follow the instructions outlined 
     - The need for the feature in terms of its use.
     - Any examples that aid in understanding the usage better.
 
-
+## Contribute to package
+To contribute to this package, please suggest a new feature following the guidelines mentioned above. Once the new feature is approved by the maintainer, the details of the code contribution will be conveyed as part of the response to the ticket on issues.
 

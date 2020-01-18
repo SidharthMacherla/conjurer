@@ -10,7 +10,14 @@ tags:
 authors:
   - name: Sidharth Macherla
     orcid: 0000-0002-4825-2026    
-
+authors:
+  - name: Sidharth Macherla
+    orcid: 0000-0002-4825-2026
+    affiliation: 1
+affiliations:
+ - name: Sidharth Macherla, Data Scientist
+   index: 1
+    
 date: 12 January 2020
 
 bibliography: paper.bib

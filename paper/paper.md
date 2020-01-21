@@ -9,16 +9,14 @@ tags:
 
 authors:
   - name: Sidharth Macherla
-    orcid: 0000-0002-4825-2026    
-authors:
-  - name: Sidharth Macherla
     orcid: 0000-0002-4825-2026
     affiliation: 1
+
 affiliations:
  - name: Sidharth Macherla, Researcher
    index: 1
 
-date: 12 January 2020
+date: 22 January 2020
 
 bibliography: paper.bib
 ---
@@ -54,20 +52,9 @@ Visually, this equation can be plotted as given below.
 ![Figure 1.](fig1.png)
 
 ##  Steps to generate variable x:
-Using this parametric methodology, data are generated in a step wise approach. Let us assume that the seasonality of the data is quarterly.
+Using this parametric methodology, data are generated at two levels namely, month level and day level.
 
-### Step 1:
-Initially, 12 data points are generated . These are then assigned a month number i.e. 1 to 12 representing months in an year. These data constitute x.
-    $$ m = \{ January, February, ..., December\}$$
-\begin{equation}
-\label{eq:3}
-x_m = \{\imath \in \mathrm{R} \mid 0 < \imath \leq 12\}
-\end{equation}
-    $$x_m \mapsto m$$
-
-### Step 2:
-Using this parametric methodology, data are generated at two levels namely, month level and day level \\
-#Month level:
+### Month level
 Initially, 12 data points are generated . These are then assigned a month number i.e. 1 to 12 representing months in an year. These data constitute $x$.
     $$ m = \{ January, February, ..., December\}$$
 \begin{equation}
@@ -92,7 +79,7 @@ $$\begin{array}{l}
 \textrm{$T$ is total number of rows in final synthetic data set}
 \end{array}$$
 
-#Day level:
+### Day level
 In this step, weights are generated for each day of the month in the following manner.
 
 \begin{equation}

@@ -42,20 +42,20 @@ $$\begin{array}{l}
 \textrm{$c$ is a constant}\cr
 \end{array}$$
 
-This formulation produces a wave like distribution with $x$ values on x-axis and weights as y-axis. The parameters $a$ and $b$ define the number of crests in the distribution and are supplied to the function as arguments. The parameter $c$ acts as an intercept. Since data from this distribution are used as weights to compute the number of transactions, it is required that they are positive values. Parameter $c$ helps in ensuring that these values are positive. The following example illustrates the data distribution based on this formulation.\\
+This formulation produces a wave like distribution with $x$ values on x-axis and weights as y-axis. The parameters $a$ and $b$ define the number of crests in the distribution and are supplied to the function as arguments. The parameter $c$ acts as an intercept. Since data from this distribution are used as weights to compute the number of transactions, it is required that they are positive values. Parameter $c$ helps in ensuring that these values are positive. The following example illustrates the data distribution based on this formulation.
 
-Let $x = \{\imath \in \mathrm{R} \mid 0< x \leq12\}$. Let us also assume that $a$ = 2, $b$ = 1 and $c$ = 2. Substituting these parameters in equation(\ref{eq:1}) gives the following data distribution.\\
+Let $x = \{\imath \in \mathrm{R} \mid 0< x \leq12\}$. Let us also assume that $a$ = 2, $b$ = 1 and $c$ = 2. Substituting these parameters in equation(\ref{eq:1}) gives the following data distribution.
 \begin{equation}
 \label{eq:2}
 \sin(1 \cdot x) + \cos(0.5 \cdot x) + 2
 \end{equation}
-Visually, this equation can be plotted as given below.\\
+Visually, this equation can be plotted as given below.
 
-![Figure 1.](fig1.png)\\
+![Figure 1.](fig1.png)
 
-Steps to generating data:\\
-Using this parametric methodology, data are generated in a step wise approach. Let us assume that the seasonality of the data is quarterly.\\
-Step 1:\\
+##  Steps to generate variable x:
+Using this parametric methodology, data are generated in a step wise approach. Let us assume that the seasonality of the data is quarterly.
+### Step 1:
 Initially, 12 data points are generated . These are then assigned a month number i.e. 1 to 12 representing months in an year. These data constitute x.
     $$ m = \{ January, February, ..., December\}$$
 \begin{equation}
@@ -64,9 +64,9 @@ x_m = \{\imath \in \mathrm{R} \mid 0 < \imath \leq 12\}
 \end{equation}
     $$x_m \mapsto m$$
 
-Step 2:\\
+### Step 2:
 Using this parametric methodology, data are generated at two levels namely, month level and day level \\
-Month level:\\
+#Month level:
 Initially, 12 data points are generated . These are then assigned a month number i.e. 1 to 12 representing months in an year. These data constitute $x$.
     $$ m = \{ January, February, ..., December\}$$
 \begin{equation}
@@ -91,7 +91,7 @@ $$\begin{array}{l}
 \textrm{$T$ is total number of rows in final synthetic data set}
 \end{array}$$
 
-Day level:\\
+#Day level:
 In this step, weights are generated for each day of the month in the following manner.
 
 \begin{equation}

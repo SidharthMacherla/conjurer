@@ -26,11 +26,11 @@ bibliography: paper.bib
 # Summary
 Data science applications need data to prototype and demonstrate to potential clients. For such purposes, using production data is a possibility. However, it is not always feasible due to legal and/or ethical considerations[@SynDataNeed]. This resulted in a need for generating synthetic data. This need is the key motivator for the package **conjurer**.
 
-Data across multiple industry domains such as Commerce [@10.2307/1884282],  Food industry[@doi:10.1177/1847979018808673] are known to exhibit some form of seasonality, cyclicality and trend. Although there are synthetic data generation packages such as synthpop[@synthpop] in R and sklearn.datasets [@scikit-learn] in Python, they focus on synthetic versions of microdata containing confidential information or for machine learning purposes. There is a need for a more generic synthetic data generation package that helps for multiple purposes such as forecasting, customer segmentation, insight generation etc. This package **conjurer** helps in generating such synthetic data.
+Data across multiple industry domains such as Commerce [@10.2307/1884282],  Food industry[@doi:10.1177/1847979018808673] are known to exhibit some form of seasonality, cyclicality and trend. Although there are synthetic data generation packages such as synthpop[@synthpop] in R and sklearn.datasets [@scikit-learn] in Python, they focus primarily on synthetic versions of microdata containing confidential information or for machine learning purposes. There is a need for a more generic synthetic data generation package that helps for multiple purposes.
 
 # Methodology
 ##  Parametric Methodology:
-This paper presents a parametric method for building synthetic data. This methodology is embedded in the function **buildDistr()** and is called multiple times during the data generation process. The formulation behind this function is as follows.
+This paper presents a parametric method for building synthetic data and is embedded in the function **buildDistr()**.  The formulation behind this function is as follows.
 \begin{equation}
 \label{eq:1}
 \sin(a \cdot x) + \cos(b \cdot x) + c
@@ -50,7 +50,8 @@ Let $x = \{\imath \in \mathrm{R} \mid 0< x \leq12\}$. Let us also assume that $a
 \sin(1 \cdot x) + \cos(0.5 \cdot x) + 2
 \end{equation}
 Visually, this equation can be plotted as given below.\\
- ![Figure 1.](fig1.png)\\
+
+![Figure 1.](fig1.png)\\
 
 Steps to generating data:\\
 Using this parametric methodology, data are generated in a step wise approach. Let us assume that the seasonality of the data is quarterly.\\
@@ -121,7 +122,5 @@ $$\begin{array}{l}
 \textrm{$w_m$ is the weight of the month $m$}\cr
 \textrm{$W_m^d$ is set of weights for all days in the month $m$}
 \end{array}$$
-
-In this step, weights are generated for each day of the month following the same prcocess as detailed in steps 1 to 4. While in the steps detailed earlier had $x_m$ representing the months of an year as in equation(\ref{eq:3}). However, in this step, $x_d$ is a set of number of days corresponding to days in that particular month such that,
 
 # References

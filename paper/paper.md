@@ -10,11 +10,6 @@ tags:
 authors:
   - name: Sidharth Macherla
     orcid: 0000-0002-4825-2026
-    affiliation: 1
-
-affiliations:
- - name: Sidharth Macherla, Researcher
-   index: 1
 
 date: 22 January 2020
 

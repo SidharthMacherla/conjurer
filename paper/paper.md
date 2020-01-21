@@ -55,6 +55,7 @@ Visually, this equation can be plotted as given below.
 
 ##  Steps to generate variable x:
 Using this parametric methodology, data are generated in a step wise approach. Let us assume that the seasonality of the data is quarterly.
+
 ### Step 1:
 Initially, 12 data points are generated . These are then assigned a month number i.e. 1 to 12 representing months in an year. These data constitute x.
     $$ m = \{ January, February, ..., December\}$$

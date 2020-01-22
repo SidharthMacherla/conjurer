@@ -24,4 +24,4 @@ install.packages('conjurer')
 The package page on CRAN(Comprehensive R Archive Network) is [here](https://cran.r-project.org/web/packages/conjurer/index.html). The reference manual is [here](https://cran.r-project.org/web/packages/conjurer/conjurer.pdf). The package vignette with the detailed documentation for usage with illustrative examples is [here](https://cran.r-project.org/web/packages/conjurer/vignettes/introduction_to_conjurer.html)
 
 # Community guidelines
-For guidelines regarding code contributions, refer to the [CONTRIBUTING.md](https://github.com/SidharthMacherla/conjurer/blob/developPaper/CONTRIBUTING.md)
+For guidelines regarding code contributions, refer to [CONTRIBUTING](https://github.com/SidharthMacherla/conjurer/blob/master/CONTRIBUTING.md)

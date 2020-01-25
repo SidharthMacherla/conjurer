@@ -1,4 +1,5 @@
 [![](https://cranlogs.r-pkg.org/badges/conjurer)](https://cran.r-project.org/package=conjurer)
+[![Build Status](https://travis-ci.org/SidharthMacherla/conjurer.svg?branch=master)](https://travis-ci.org/SidharthMacherla/conjurer)
 # Documentation
 conjurer: An R Package to build synthetic data
 

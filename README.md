@@ -7,7 +7,7 @@ conjurer: An R Package to build synthetic data
 Sidharth Macherla
 # License
 This project is licensed under the MIT License - see the
-[LICENSE.md](https://github.com/SidharthMacherla/conjurer/blob/developPaper/LICENSE.md) file for details.
+[LICENSE](https://github.com/SidharthMacherla/conjurer/blob/master/LICENSE) file for details.
 # Statement of Need
 Data science applications need data to prototype and demonstrate to potential clients. For such purposes, using production data is a possibility. However, it is not always feasible due to legal and/or ethical considerations. This resulted in a need for generating synthetic data. This need is the key motivator for the package **conjurer**.
 
@@ -25,4 +25,4 @@ install.packages('conjurer')
 The package page on CRAN(Comprehensive R Archive Network) is [here](https://cran.r-project.org/web/packages/conjurer/index.html). The reference manual is [here](https://cran.r-project.org/web/packages/conjurer/conjurer.pdf). The package vignette with the detailed documentation for usage with illustrative examples is [here](https://cran.r-project.org/web/packages/conjurer/vignettes/introduction_to_conjurer.html)
 
 # Community guidelines
-For guidelines regarding code contributions, refer to the [CONTRIBUTING.md](https://github.com/SidharthMacherla/conjurer/blob/developPaper/CONTRIBUTING.md)
+For guidelines regarding code contributions, refer to [CONTRIBUTING](https://github.com/SidharthMacherla/conjurer/blob/master/CONTRIBUTING.md)

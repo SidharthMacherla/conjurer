@@ -1,6 +1,6 @@
 [![](https://cranlogs.r-pkg.org/badges/conjurer)](https://cran.r-project.org/package=conjurer)
 [![Build Status](https://travis-ci.org/SidharthMacherla/conjurer.svg?branch=master)](https://travis-ci.org/SidharthMacherla/conjurer)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/SidharthMacherla/conjurer?branch=master&svg=true)](https://ci.appveyor.com/project/SidharthMacherla/conjurer)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/SidharthMacherla/conjurer?branch=developPaper&svg=true)](https://ci.appveyor.com/project/SidharthMacherla/conjurer)
 # Documentation
 conjurer: An R Package to build synthetic data
 

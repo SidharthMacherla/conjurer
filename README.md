@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/52cb239790ab41d2806108140ce36639)](https://app.codacy.com/manual/msidharthrasik/conjurer?utm_source=github.com&utm_medium=referral&utm_content=SidharthMacherla/conjurer&utm_campaign=Badge_Grade_Dashboard)
 [![](https://cranlogs.r-pkg.org/badges/conjurer)](https://cran.r-project.org/package=conjurer)
 [![Build Status](https://travis-ci.org/SidharthMacherla/conjurer.svg?branch=master)](https://travis-ci.org/SidharthMacherla/conjurer)
 # Documentation

@@ -21,4 +21,4 @@ To suggest new features to the package, please follow the instructions outlined 
   - Any examples that aid in understanding the usage better.
 
 ## Contribute to package
-To contribute to this package, please suggest a new feature following the guidelines mentioned above. Once the new feature is approved by the maintainer, the details of the code contribution will be conveyed as part of the response to the ticket on issues.
+To contribute to this package, please suggest a new feature following the guidelines mentioned above. Once the new feature is approved by the maintainer, the details of the code contribution will be conveyed as part of the response to the ticket on issues. All code contributions should follow the best practices detailed in Hadley Wickham's [book](http://r-pkgs.had.co.nz/). Additionally, the code should pass without any issues/warnings/notes when [goodpractice](https://CRAN.R-project.org/package=goodpractice) is implemented on the code.

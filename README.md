@@ -1,7 +1,9 @@
-[![](https://cranlogs.r-pkg.org/badges/conjurer)](https://cran.r-project.org/package=conjurer)
+[![](https://www.r-pkg.org/badges/version/conjurer)](https://cran.r-project.org/package=conjurer)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/conjurer)](https://cran.r-project.org/package=conjurer)
 [![Build Status](https://travis-ci.org/SidharthMacherla/conjurer.svg?branch=master)](https://travis-ci.org/SidharthMacherla/conjurer)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/52cb239790ab41d2806108140ce36639)](https://app.codacy.com/manual/msidharthrasik/conjurer?utm_source=github.com&utm_medium=referral&utm_content=SidharthMacherla/conjurer&utm_campaign=Badge_Grade_Dashboard)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3687/badge)](https://bestpractices.coreinfrastructure.org/projects/3687)
+
 # Documentation
 conjurer: An R Package to build synthetic data
 

@@ -12,10 +12,10 @@
 #' @export
 buildProd <- function(numOfProd, minPrice, maxPrice)
 {
-  prodId <- as.data.frame(buildName(numOfItems = numOfProd, prefix = "sku"));
-  prodPrice <- sample(seq(minPrice,maxPrice,by = 0.01), size = numOfProd,replace = FALSE);
+  prodId <- as.data.frame(buildName(numOfItems = numOfProd, prefix = "sku"))
+  prodPrice <- sample(seq(minPrice,maxPrice,by = 0.01), size = numOfProd,replace = FALSE)
   prod <- data.frame(prodId,prodPrice)
-  colnames(prod) <- c("SKU", "Price");
+  colnames(prod) <- c("SKU", "Price")
   return(prod)
 }
 

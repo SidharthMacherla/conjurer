@@ -10,7 +10,7 @@
 #' @export
 buildCust <- function(numOfCust)
 {
-  custId <- buildName(numOfItems = numOfCust, prefix = "cust");
+  custId <- buildName(numOfItems = numOfCust, prefix = "cust")
 }
 
 

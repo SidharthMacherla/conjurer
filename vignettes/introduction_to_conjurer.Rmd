@@ -43,6 +43,24 @@ customers <- buildCust(numOfCust =  100)
 print(head(customers))
 ```
 
+#### 2.2.1 Build customer names
+A list of customer names for the 100 customer IDs can be generated in the following way.
+```{r, eval=TRUE, echo=TRUE, results='markup'}
+custNames <- as.data.frame(buildNames(numOfNames = 100, minLength = 5, maxLength = 7))
+
+#set column heading
+colnames(custNames) <- c("customerName")
+print(head(custNames))
+```
+
+#### 2.2.2 Assign customer name to customer ID
+Let us assign customer names to customer IDs. This is a random one to one mapping using the following code.
+```{r, eval=TRUE, echo=TRUE, results='markup'}
+customer2name <- cbind(customers, custNames)
+#set column heading
+print(head(customer2name))
+```
+
 ### 2.2 Build products
 The next step is building some products. A product is identified by a product ID. Similar to a customer ID, a product ID is also an alphanumeric with prefix "sku" which signifies a stock keeping unit. This prefix is followed by a numeric ranging from 1 and extending to the number of products provided as the argument within the function. For example, if there are 10 products, then the product ID will range from sku01 to sku10. This ensures that the product ID is always of the same length.
   Besides product ID, the product price range must be specified. Let us build a group of products using the following code. For simplicity, let us assume that there are 10 products and the price range for them is from 5 dollars to 50 dollars. Products are built using the function buildProd. This function takes 3 arguments as given below.
@@ -112,12 +130,21 @@ names(product2transaction) <- c('transactionID', 'SKU')
 print(head(product2transaction))
 ```
 
-#### 2.4.3 Final data
-Now, using a similar step as mentioned above, allocate transactions to products using the following code.
+#### 2.4.3 Combine customers and transactions data
+The following code brings together transactions, products and customers into one dataframe.
 ```{r, eval=TRUE, echo=TRUE, results='markup'}
 df1 <- merge(x = customer2transaction, y = product2transaction, by = "transactionID")
 
-dfFinal <- merge(x = df1, y = transactions, by = "transactionID", all.x = TRUE)
+df2 <- merge(x = df1, y = transactions, by = "transactionID", all.x = TRUE)
+
+#inspect the output
+print(head(df2))
+```
+
+#### 2.4.3 Final data
+We can add additional data such as customer name using the code below.
+```{r, eval=TRUE, echo=TRUE, results='markup'}
+dfFinal <- merge(x = df2, y = customer2name, by.x = "customer", by.y = "customers", all.x = TRUE)
 
 #inspect the output
 print(head(dfFinal))
@@ -132,6 +159,7 @@ The column names of the final data frame can be interpreted as follows.
   + **SKU** is the product that was bought in that transaction.
   + **dayNum** is the day number in the year. There would be 365 unique dayNum in the data frame. 
   + **mthNum** is the month number. This ranges from 1 to 12 and represents January to December respectively.
+  + **customerName** is name of the customer.
 
 Let us visualize the results to understand the data distribution.
 

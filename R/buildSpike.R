@@ -5,15 +5,15 @@
 #' @return A numeric vector reordered
 buildSpike <- function(distr, spike)
 {
-  distrDf <- as.data.frame(distr);
-  names(distrDf) <- c("wt");
-  distrDf$mth <- as.numeric(row.names(distrDf));
-  maxVal <- max(distr);
-  maxValIndex <- as.numeric(row.names(distrDf[distrDf$wt==maxVal,]));
-  spikeMinusMaxvalindex <- (spike - maxValIndex);
-  distrDf$mthTemp <- (distrDf$mth + spikeMinusMaxvalindex);
-  distrDf$mthFinal <- ifelse(distrDf$mthTemp>12,(distrDf$mthTemp-12),distrDf$mthTemp);
-  distrDf <- distrDf[order(distrDf$mthFinal), ];
-  distrOut <- distrDf$wt;
-  return(distrOut);
+  distrDf <- as.data.frame(distr)
+  names(distrDf) <- c("wt")
+  distrDf$mth <- as.numeric(row.names(distrDf))
+  maxVal <- max(distr)
+  maxValIndex <- as.numeric(row.names(distrDf[distrDf$wt==maxVal,]))
+  spikeMinusMaxvalindex <- (spike - maxValIndex)
+  distrDf$mthTemp <- (distrDf$mth + spikeMinusMaxvalindex)
+  distrDf$mthFinal <- ifelse(distrDf$mthTemp>12,(distrDf$mthTemp-12),distrDf$mthTemp)
+  distrDf <- distrDf[order(distrDf$mthFinal), ]
+  distrOut <- distrDf$wt
+  return(distrOut)
 }

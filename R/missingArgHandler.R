@@ -6,6 +6,6 @@
 #' @return The default value of the missing argument.
 missingArgHandler <- function(argMissed,argDefault)
 {
-  out <- ifelse(missing(argMissed),argDefault,argMissed);
+  out <- ifelse(missing(argMissed),argDefault,argMissed)
   return(out)
 }

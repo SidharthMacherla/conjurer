@@ -19,7 +19,7 @@ buildDistr(st, en, cycles, trend)
 A data frame with data distribution is returned.
 }
 \description{
-Builds data distribution. For example, the function 'genTrans' uses this function to build the data distributions necessary. This function uses trigonometry based functions to generate data. This is an internal function and is currently not exported in the package.
+Builds data distribution. For example, the function \code{\link{genTrans}} uses this function to build the data distributions necessary. This function uses trigonometry based functions to generate data. This is an internal function and is currently not exported in the package.
 }
 \details{
 A parametric method is used to build data distribution. The data distribution function uses the formulation of
@@ -32,7 +32,7 @@ Where,
 }
 Firstly, parameter 'a' defines the number of outer level crests (peaks in the data distribution). Generally speaking, the number of crests is approximately twice the value of a. This means that if a is set to a value 0.5, there will be one crest and if it is set to 2, there will be 4 crests. On account of this behavior, this parameter is set based on the argument cycles of the function. For example, if the argument cycles is set to "y" i.e yearly cycle, it means that there must be one crest i.e peak in the distribution. To have one crest, the parameter must be around 0.5. A random number is then generated between 0.2 and 0.6 to get to that one crest.
 
-Secondly, the variable 'x' is the x-axis of the data distribution. Since the function **buildDistr** is used internally to generate data at different levels, this variable could have a range of 1 to 12 or 1 to 31 depending on the arguments 'st' and 'en'. For example, if the data is generated at the month level, then arguments 'st' is set to 1 and 'en' is set to 12. Similarly, if the data is set to day level, the 'st' is set to 1 and 'en' is set to the number of days in that month i.e 28 for month 2 and 31 for month 12 etc.
+Secondly, the variable 'x' is the x-axis of the data distribution. Since the function  \code{\link{buildDistr}} is used internally to generate data at different levels, this variable could have a range of 1 to 12 or 1 to 31 depending on the arguments 'st' and 'en'. For example, if the data is generated at the month level, then arguments 'st' is set to 1 and 'en' is set to 12. Similarly, if the data is set to day level, the 'st' is set to 1 and 'en' is set to the number of days in that month i.e 28 for month 2 and 31 for month 12 etc.
 
 Thirdly, the parameter 'b' defines the inner level crests(peaks in data distribution). This parameter helps in making the data distribution seem more realistic by adding more "ruggedness" of the distribution.
 

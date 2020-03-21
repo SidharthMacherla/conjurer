@@ -30,7 +30,7 @@ buildNames <- function(dframe, numOfNames, minLength, maxLength)
   #notify users of the less training data
   if(maxRange < 13)
   {
-    print("Training data is not large enough. Expect less than minimum length names and/or names that do not seem like  training data")
+    warning("Training data is not large enough. Expect less than minimum length names and/or names that do not seem like  training data")
   }
 
   #select the high frequency beginning alphabets

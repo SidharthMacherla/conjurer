@@ -1,6 +1,7 @@
 ^appveyor\.yml$
 ^\.travis\.yml$
 ^LICENSE\.md$
+^README.md$
 ^CONTRIBUTING.md$
 ^SECURITY.md$
 ^.*\.Rproj$

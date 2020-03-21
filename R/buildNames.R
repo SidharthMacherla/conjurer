@@ -17,15 +17,24 @@ buildNames <- function(dframe, numOfNames, minLength, maxLength)
     #generate alphamatrix
     alphaMatrixFirst <- genMatrix(dframe,"first")
     alphaMatrixAll <- genMatrix(dframe,"all")
-    alphaMatrixLast <- genMatrix(dframe,"last")
+    #alphaMatrixLast <- genMatrix(dframe,"last")
   }
 
   #build top frequency alphas
   topAlphas <- rowSums(alphaMatrixFirst)
   topAlphas <- topAlphas[order(-topAlphas)]
 
+  #select the range of topAlphas. This is particularly important if the length of topAlphas is less than 13
+  maxRange <- min(length(topAlphas), 13)
+
+  #notify users of the less training data
+  if(maxRange < 13)
+  {
+    print("Training data is not large enough. Expect less than minimum length names and/or names that do not seem like  training data")
+  }
+
   #select the high frequency beginning alphabets
-  n <- sample(topAlphas[1:13],numOfNames, replace = TRUE)
+  n <- sample(topAlphas[1:maxRange],numOfNames, replace = TRUE)
   custNames <- list()
   for(i in seq_along(n))
   {
@@ -37,6 +46,12 @@ buildNames <- function(dframe, numOfNames, minLength, maxLength)
     for(j in 3:nameLength)
     {
       nextAlpha <- nextAlphaProb(alphaMatrix = alphaMatrixAll, currentAlpha = prevAlpha, placement = "all")
+      if(nextAlpha == "doesNotExist")
+      {
+        prevAlphaEnd <- unlist(strsplit(prevAlpha, split = ""))[2]
+        nextAlpha <- nextAlphaProb(alphaMatrix = alphaMatrixFirst, currentAlpha = prevAlphaEnd, placement = "first")
+        next
+      }
       custName <- list(custName,nextAlpha)
       custName <- unlist(custName)
       prevAlpha <- paste0(custName[length(custName)-1], custName[length(custName)], collapse = "")

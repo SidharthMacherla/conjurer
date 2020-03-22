@@ -12,27 +12,35 @@
 
 nextAlphaProb <- function(alphaMatrix, currentAlpha, placement)
 {
-  matrixSubsetCur <- alphaMatrix[currentAlpha,]
-  sumRowProb <- prop.table(matrixSubsetCur)
-
-  #add randomness
-  randNum <- sample(1:3,1)
-
-  #compute prob(current)
-  listOfProbs <- list()
-  for(i in seq_along(sumRowProb))
+  #matrixSubsetCur <- alphaMatrix[currentAlpha,]
+  tryCatchTest <- try(matrixSubsetCur <- alphaMatrix[currentAlpha,], silent = TRUE)
+  if(class(tryCatchTest) == "try-error")
   {
+    nextAlphaFinal <- "doesNotExist"
+  }else
+  {
+    sumRowProb <- prop.table(matrixSubsetCur)
 
-    #compute prob(next). Note that row or column sum does not matter as its the same.
-    nextAlpha <- names(sumRowProb[i])
-    #compute prob(next|current) testing with just next alpha
-    probNextAlphaGivenCur <- sumRowProb[nextAlpha]
-    listOfProbs <- c(listOfProbs,list(probNextAlphaGivenCur))
+    #select the range of sumRowProb This is particularly important if the length of sumRowProb is less than 3
+    maxRange <- min(length(sumRowProb), 3)
+
+    #add randomness
+    randNum <- sample(1:maxRange,1)
+
+    #compute prob(current)
+    listOfProbs <- list()
+    for(i in seq_along(sumRowProb))
+    {
+      #compute prob(next). Note that row or column sum does not matter as its the same.
+      nextAlpha <- names(sumRowProb[i])
+      #compute prob(next|current) testing with just next alpha
+      probNextAlphaGivenCur <- sumRowProb[nextAlpha]
+      listOfProbs <- c(listOfProbs,list(probNextAlphaGivenCur))
+    }
+    #pick the next alphabet randomly from the top few highest probabilities
+    unlistOfProbs <- unlist(listOfProbs)
+    sortedProb <- sort(unlistOfProbs, decreasing = TRUE)
+    nextAlphaFinal <- names(sortedProb[randNum])
   }
-  #pick the next alphabet randomly from the top few highest probabilities
-  unlistOfProbs <- unlist(listOfProbs)
-  sortedProb <- sort(unlistOfProbs, decreasing = TRUE)
-  nextAlphaFinal <- names(sortedProb[randNum])
-
   return(nextAlphaFinal)
 }

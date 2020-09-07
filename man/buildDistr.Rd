@@ -4,7 +4,7 @@
 \alias{buildDistr}
 \title{Build Data Distribution}
 \usage{
-buildDistr(st, en, cycles, trend)
+buildDistr(st, en, cycles, trend, n)
 }
 \arguments{
 \item{st}{A number. This defines the starting value of the number of data points.}
@@ -14,6 +14,8 @@ buildDistr(st, en, cycles, trend)
 \item{cycles}{A string. This defines the cyclicality of data distribution.}
 
 \item{trend}{A number. This defines the trend of data distribution i.e if the data has a positive slope or a negative slope.}
+
+\item{n}{A numeric. This specifies the number of values to be generated. It should be non-zero natural number. This parameter is currently used by the function \code{\link{buildNum}}.}
 }
 \value{
 A data frame with data distribution is returned.

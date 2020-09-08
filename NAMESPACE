@@ -2,6 +2,7 @@
 
 export(buildCust)
 export(buildNames)
+export(buildNum)
 export(buildPareto)
 export(buildProd)
 export(genTrans)

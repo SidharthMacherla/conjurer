@@ -4,6 +4,7 @@
 #' @param en A number. This defines the ending value of the number of data points.
 #' @param cycles A string. This defines the cyclicality of data distribution.
 #' @param trend A number. This defines the trend of data distribution i.e if the data has a positive slope or a negative slope.
+#' @param n A numeric. This specifies the number of values to be generated. It should be non-zero natural number. This parameter is currently used by the function \code{\link{buildNum}}.
 #' @details A parametric method is used to build data distribution. The data distribution function uses the formulation of
 #' \deqn{sin(a*x) + cos(b*x) + c}
 #' Where,
@@ -20,12 +21,14 @@
 #'
 #'Finally, the constant 'c' is the intercept part of the formulation and primarily serves as a way to ensure that the data distribution has a positive 'y' axis component. This value is randomly generated between 2 and 5.
 #' @return A data frame with data distribution is returned.
-buildDistr <- function(st, en, cycles, trend)
+buildDistr <- function(st, en, cycles, trend, n)
 {
   #handle missing arguments
   st <- missingArgHandler(st,1)
   en <- missingArgHandler(en,12)
   cycles <- missingArgHandler(cycles, "y")
+  trend <- missingArgHandler(trend, 1)
+  n <- missingArgHandler(n,100)
 
   if(cycles == "y")
   {
@@ -39,14 +42,25 @@ buildDistr <- function(st, en, cycles, trend)
   {
     a <- 3
     b <- 0.25
+  }else if(cycles == "n") #Here, "n" is numeric. This is used to generate other distributions (continuous/discrete)
+  {
+    #randomize trend value within +- 20% range
+    coeffs <- seq(from = 0.8, to =1.2, by =0.001)
+    randomCoeff <- sample(coeffs, 1, replace = T)
   }
 
   #generate intercept as a random int between 2 and 5
   c <- sample(2:5,1)
-  trend <- missingArgHandler(trend, 1)
-
   x <- seq(st,en,by=(en-st)/(en-1))
-  if(trend == 1 && cycles != "m")
+
+  if(cycles == "n")
+  {
+    x <- seq(from = (pi/2), to = (3*pi/2), by = pi/(n-1))
+    y <- sin((randomCoeff*trend)*x) + c
+    percentY <- (y - min(y))/((max(y)-min(y)))
+    distr <- ((en-st)*percentY)+st
+
+  }else if(trend == 1 && cycles != "m")
   {
     distr <- sin(a*x) + cos(b*x) + c
   }else if(trend == 1 && cycles == "m")

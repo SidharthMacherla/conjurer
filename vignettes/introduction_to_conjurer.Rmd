@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 ## 1.Overview
 ### 1.1 Background & Motivation
 Data science applications need data to prototype and demonstrate to potential clients. For such purposes, using production data is a possibility. However, it is not always feasible due to legal and/or ethical considerations[@SynDataNeed]. This resulted in a need for generating synthetic data. This need is the key motivator for the package **conjurer**.
+This package is under constant development and the author would update the documentation regularly at [foyi digital library](https://www.foyi.co.nz/posts/documentation/documentationconjurer/)
 
 ### 1.2 Need for package conjurer
 Data across multiple domains are known to exhibit some form of seasonality, cyclicality and trend. Although there are synthetic data generation packages currently available, they focus primarily on synthetic versions of microdata containing confidential information or for machine learning purposes. There is a need for a more generic synthetic data generation package that helps for multiple purposes such as forecasting, customer segmentation, insight generation etc. This package **conjurer** helps in generating such synthetic data.
@@ -61,7 +62,24 @@ customer2name <- cbind(customers, custNames)
 print(head(customer2name))
 ```
 
-### 2.2 Build products
+#### 2.2.3 Build customer age
+A list of customer ages for the 100 customer IDs can be generated in the following way.
+```{r, eval=TRUE, echo=TRUE, results='markup'}
+custAge <- as.data.frame(round(buildNum(n = 10, st = 23, en = 80, disp = 0.5, outliers = 1)))
+
+#set column heading
+colnames(custAge) <- c("customerAge")
+print(head(custAge))
+```
+#### 2.2.4 Assign customer age to customer ID
+Let us assign customer ages to customer IDs. This is a random one to one mapping using the following code.
+```{r, eval=TRUE, echo=TRUE, results='markup'}
+customer2age <- cbind(customers, custAge)
+#set column heading
+print(head(customer2age))
+```
+
+### 2.3 Build products
 The next step is building some products. A product is identified by a product ID. Similar to a customer ID, a product ID is also an alphanumeric with prefix "sku" which signifies a stock keeping unit. This prefix is followed by a numeric ranging from 1 and extending to the number of products provided as the argument within the function. For example, if there are 10 products, then the product ID will range from sku01 to sku10. This ensures that the product ID is always of the same length.
   Besides product ID, the product price range must be specified. Let us build a group of products using the following code. For simplicity, let us assume that there are 10 products and the price range for them is from 5 dollars to 50 dollars. Products are built using the function buildProd. This function takes 3 arguments as given below.
   
@@ -74,7 +92,7 @@ products <- buildProd(numOfProd = 10, minPrice = 5, maxPrice = 50)
 print(head(products))
 ```
 
-### 2.3 Build transactions
+### 2.4 Build transactions
 Now that a group of customer IDs and Products are built, the next step is to build transactions. Transactions are built using the function genTrans. This function takes 5 arguments. The details of them are as follows.
 
   + **cylces**. This represents the cyclicality of data. It can take the following values
@@ -98,11 +116,11 @@ TxnAggregated <- aggregate(transactions$transactionID, by = list(transactions$da
 plot(TxnAggregated, type = "l", ann = FALSE)
 ```
 
-### 2.4 Build final data 
+### 2.5 Build final data 
 Bringing customers, products and transactions together is the final step of generating synthetic data. This process entails 3 steps as given below. 
 
 
-#### 2.4.1 Allocate customers to transactions
+#### 2.5.1 Allocate customers to transactions
 The allocation of transactions is achieved with the help of buildPareto function. This function takes 3 arguments as detailed below.
 
   + **factor1** and **factor2**. These are factors to be mapped to each other. As the name suggests, they must be of data type factor.
@@ -120,7 +138,7 @@ names(customer2transaction) <- c('transactionID', 'customer')
 print(head(customer2transaction))
 ```
 
-#### 2.4.2 Allocate products to transactions
+#### 2.5.2 Allocate products to transactions
 Now, using similar step as mentioned above, allocate transactions to products using following code.
 ```{r, eval=TRUE, echo=TRUE, results='markup'}
 product2transaction <- buildPareto(products$SKU,transactions$transactionID,pareto = c(70,30))
@@ -130,7 +148,7 @@ names(product2transaction) <- c('transactionID', 'SKU')
 print(head(product2transaction))
 ```
 
-#### 2.4.3 Combine customers and transactions data
+#### 2.5.3 Combine customers and transactions data
 The following code brings together transactions, products and customers into one dataframe.
 ```{r, eval=TRUE, echo=TRUE, results='markup'}
 df1 <- merge(x = customer2transaction, y = product2transaction, by = "transactionID")
@@ -141,10 +159,14 @@ df2 <- merge(x = df1, y = transactions, by = "transactionID", all.x = TRUE)
 print(head(df2))
 ```
 
-#### 2.4.3 Final data
-We can add additional data such as customer name using the code below.
+#### 2.5.4 Final data
+We can add additional data such as customer name, product price using the code below.
 ```{r, eval=TRUE, echo=TRUE, results='markup'}
-dfFinal <- merge(x = df2, y = customer2name, by.x = "customer", by.y = "customers", all.x = TRUE)
+df3 <- merge(x = df2, y = customer2name, by.x = "customer", by.y = "customers", all.x = TRUE)
+df4 <- merge(x = df3, y = customer2age, by.x = "customer", by.y = "customers", all.x = TRUE)
+df5 <- merge(x = df4, y = products, by = "SKU", all.x = TRUE)
+dfFinal <- df5[,c("dayNum", "mthNum", "customer", "customerName", "customerAge", "SKU", "Price", "transactionID")]
+
 
 #inspect the output
 print(head(dfFinal))

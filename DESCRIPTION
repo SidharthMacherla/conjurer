@@ -1,14 +1,14 @@
 Package: conjurer
 Type: Package
 Title: A Parametric Method for Generating Synthetic Data
-Version: 1.1.1
-Date: 2020-03-22
+Version: 1.2.0
+Date: 2020-09-06
 Authors@R: person("Sidharth", "Macherla", email = "msidharthrasik@gmail.com",
                   role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4825-2026"))
 Description: Builds synthetic data applicable across multiple domains. This package also provides flexibility to control data distribution to make it relevant to many industry examples.
 Depends: R (>= 2.10)
 License: MIT + file LICENSE
-URL: https://github.com/SidharthMacherla/conjurer
+URL: https://www.foyi.co.nz/posts/documentation/documentationconjurer/
 BugReports: https://github.com/SidharthMacherla/conjurer/issues
 Encoding: UTF-8
 LazyData: TRUE

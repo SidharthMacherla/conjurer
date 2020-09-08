@@ -6,7 +6,7 @@
 [![DOI](https://zenodo.org/badge/228922834.svg)](https://zenodo.org/badge/latestdoi/228922834)
 
 # Documentation
-conjurer: An R Package to build synthetic data
+The official documentation for **conjurer** is at [foyi](https://www.foyi.co.nz/posts/documentation/documentationconjurer/)
 
 ## Author
 Sidharth Macherla

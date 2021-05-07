@@ -8,6 +8,8 @@
 # Documentation
 The official documentation for **conjurer** is at [foyi](https://www.foyi.co.nz/posts/documentation/documentationconjurer/)
 
+>:bell:If you are looking for an easy to use GUI for generating synthetic data please check out the app [*UnReal*](https://www.foyi.co.nz/posts/apps/apps_unreal/) :tada:
+
 ## Author
 Sidharth Macherla
 ## License

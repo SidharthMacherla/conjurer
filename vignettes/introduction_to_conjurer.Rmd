@@ -4,7 +4,9 @@ author: "Sidharth Macherla"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 link-citations: TRUE
-output: rmarkdown::html_vignette
+output:
+  html_document:
+    number_sections: true
 vignette: >
   %\VignetteIndexEntry{Introduction to conjurer}
   %\VignetteEngine{knitr::rmarkdown}
@@ -18,24 +20,24 @@ knitr::opts_chunk$set(
 )
 ```
 
-## 1.Overview
-### 1.1 Background & Motivation
+# Overview
+## Background & Motivation
 Data science applications need data to prototype and demonstrate to potential clients. For such purposes, using production data is a possibility. However, it is not always feasible due to legal and/or ethical considerations[@SynDataNeed]. This resulted in a need for generating synthetic data. This need is the key motivator for the package **conjurer**.
 This package is under constant development and the author would update the documentation regularly at [foyi digital library](https://www.foyi.co.nz/posts/documentation/documentationconjurer/)
 
-### 1.2 Need for package conjurer
+## Need for package conjurer
 Data across multiple domains are known to exhibit some form of seasonality, cyclicality and trend. Although there are synthetic data generation packages currently available, they focus primarily on synthetic versions of microdata containing confidential information or for machine learning purposes. There is a need for a more generic synthetic data generation package that helps for multiple purposes such as forecasting, customer segmentation, insight generation etc. This package **conjurer** helps in generating such synthetic data.
 
-## 2.Steps to build synthetic data
+# Steps to build synthetic data
 Let us consider an example of generating transactional data for a retail store. The following steps will help in building such data.
 
-### 2.1 Installation
+## Installation
 Install conjurer package by using the following code. Since the package uses base R functions, it does not have any dependencies.
 ```{r, eval=FALSE, echo=TRUE}
 install.packages("conjurer")
 ```
 
-### 2.2 Build customers
+## Build customers
 A customer is identified by a unique customer identifier(ID). A customer ID is alphanumeric with prefix "cust" followed by a numeric. This numeric ranges from 1 and extend to the number of customers provided as the argument within the function. For example, if there are 100 customers, then the customer ID will range from cust001 to cust100. This ensures that the customer ID is always of the same length.
   Let us build a group of customer IDs using the following code. For simplicity, let us assume that there are 100 customers. customer ID is built using the function buildCust. This function takes one argument "numOfCust" that specifies the number of customer IDs to be built.
 ```{r, eval=TRUE, echo=TRUE, results='markup'}
@@ -44,7 +46,7 @@ customers <- buildCust(numOfCust =  100)
 print(head(customers))
 ```
 
-#### 2.2.1 Build customer names
+### Build customer names
 A list of customer names for the 100 customer IDs can be generated in the following way.
 ```{r, eval=TRUE, echo=TRUE, results='markup'}
 custNames <- as.data.frame(buildNames(numOfNames = 100, minLength = 5, maxLength = 7))
@@ -54,7 +56,7 @@ colnames(custNames) <- c("customerName")
 print(head(custNames))
 ```
 
-#### 2.2.2 Assign customer name to customer ID
+### Assign customer name to customer ID
 Let us assign customer names to customer IDs. This is a random one to one mapping using the following code.
 ```{r, eval=TRUE, echo=TRUE, results='markup'}
 customer2name <- cbind(customers, custNames)
@@ -62,7 +64,7 @@ customer2name <- cbind(customers, custNames)
 print(head(customer2name))
 ```
 
-#### 2.2.3 Build customer age
+### Build customer age
 A list of customer ages for the 100 customer IDs can be generated in the following way.
 ```{r, eval=TRUE, echo=TRUE, results='markup'}
 custAge <- as.data.frame(round(buildNum(n = 10, st = 23, en = 80, disp = 0.5, outliers = 1)))
@@ -71,7 +73,7 @@ custAge <- as.data.frame(round(buildNum(n = 10, st = 23, en = 80, disp = 0.5, ou
 colnames(custAge) <- c("customerAge")
 print(head(custAge))
 ```
-#### 2.2.4 Assign customer age to customer ID
+### Assign customer age to customer ID
 Let us assign customer ages to customer IDs. This is a random one to one mapping using the following code.
 ```{r, eval=TRUE, echo=TRUE, results='markup'}
 customer2age <- cbind(customers, custAge)
@@ -79,7 +81,7 @@ customer2age <- cbind(customers, custAge)
 print(head(customer2age))
 ```
 
-### 2.3 Build products
+## Build products
 The next step is building some products. A product is identified by a product ID. Similar to a customer ID, a product ID is also an alphanumeric with prefix "sku" which signifies a stock keeping unit. This prefix is followed by a numeric ranging from 1 and extending to the number of products provided as the argument within the function. For example, if there are 10 products, then the product ID will range from sku01 to sku10. This ensures that the product ID is always of the same length.
   Besides product ID, the product price range must be specified. Let us build a group of products using the following code. For simplicity, let us assume that there are 10 products and the price range for them is from 5 dollars to 50 dollars. Products are built using the function buildProd. This function takes 3 arguments as given below.
   
@@ -92,7 +94,36 @@ products <- buildProd(numOfProd = 10, minPrice = 5, maxPrice = 50)
 print(head(products))
 ```
 
-### 2.4 Build transactions
+### Build product hierarchy
+The products belong to various categories. Let's start to build the product hierarchy. The 10 products belong to 2 categories namely Food and Non-Food. These categories are further classifed into 4 different sub-categories namely Beverages, Dairy, Sanitary and Household.    
+
+```{r, eval=TRUE, echo=TRUE, results='markup'}
+productHierarchy <- buildHierarchy(type = "equalSplit", splits = 2, numOfLevels = 2)
+print(productHierarchy)
+```
+
+As you can see, the product hierarchy generated has default names for levels and elements. To make it more meaningful, it can be modified as follows.    
+
+```{r, eval=TRUE, echo=TRUE, results='markup'}
+#Rename the dataframe
+names(productHierarchy) <- c("category", "subcategory")
+
+#Replace category with Food and Non-Food
+productHierarchy$category <- gsub("Level_1_element_1", "Food", productHierarchy$category)
+productHierarchy$category <- gsub("Level_1_element_2", "Non-Food", productHierarchy$category)
+
+#Replace subCategories
+productHierarchy$subcategory <- gsub("Level_2_element_1", "Beverages", productHierarchy$subcategory)
+productHierarchy$subcategory <- gsub("Level_2_element_3", "Dairy", productHierarchy$subcategory)
+productHierarchy$subcategory <- gsub("Level_2_element_2", "Sanitary", productHierarchy$subcategory)
+productHierarchy$subcategory <- gsub("Level_2_element_4", "Household", productHierarchy$subcategory)
+
+#Inspect the data to confirm the results 
+productHierarchy <- productHierarchy[order(productHierarchy$category),]
+print(productHierarchy)
+```   
+
+## Build transactions
 Now that a group of customer IDs and Products are built, the next step is to build transactions. Transactions are built using the function genTrans. This function takes 5 arguments. The details of them are as follows.
 
   + **cylces**. This represents the cyclicality of data. It can take the following values
@@ -116,11 +147,11 @@ TxnAggregated <- aggregate(transactions$transactionID, by = list(transactions$da
 plot(TxnAggregated, type = "l", ann = FALSE)
 ```
 
-### 2.5 Build final data 
+## Build final data 
 Bringing customers, products and transactions together is the final step of generating synthetic data. This process entails 3 steps as given below. 
 
 
-#### 2.5.1 Allocate customers to transactions
+### Allocate customers to transactions
 The allocation of transactions is achieved with the help of buildPareto function. This function takes 3 arguments as detailed below.
 
   + **factor1** and **factor2**. These are factors to be mapped to each other. As the name suggests, they must be of data type factor.
@@ -137,8 +168,22 @@ names(customer2transaction) <- c('transactionID', 'customer')
 #inspect the output
 print(head(customer2transaction))
 ```
+### Allocate products to product hierarchy
+Allocate the products to the product hierarchy. This can be achieved as follows.  
+```{r, eval=TRUE, echo=TRUE, results='markup'}
+#First step is to ensure that the product hierarchy data frame has the same number of rows as number of products.
+category <- productHierarchy$category
+subcategory <- productHierarchy$subcategory
+productHierarchy <- as.data.frame(cbind(category,subcategory,1:nrow(products)))
 
-#### 2.5.2 Allocate products to transactions
+#Randomly assign the product hierarchy to the products. Ensure that the additional unused variable towards the end is dropped.
+products <- cbind(products, productHierarchy[,c("category","subcategory")])
+#inspect the output
+print(head(products))
+```
+
+
+### Allocate products to transactions
 Now, using similar step as mentioned above, allocate transactions to products using following code.
 ```{r, eval=TRUE, echo=TRUE, results='markup'}
 product2transaction <- buildPareto(products$SKU,transactions$transactionID,pareto = c(70,30))
@@ -148,7 +193,7 @@ names(product2transaction) <- c('transactionID', 'SKU')
 print(head(product2transaction))
 ```
 
-#### 2.5.3 Combine customers and transactions data
+### Combine customers and transactions data
 The following code brings together transactions, products and customers into one dataframe.
 ```{r, eval=TRUE, echo=TRUE, results='markup'}
 df1 <- merge(x = customer2transaction, y = product2transaction, by = "transactionID")
@@ -159,13 +204,13 @@ df2 <- merge(x = df1, y = transactions, by = "transactionID", all.x = TRUE)
 print(head(df2))
 ```
 
-#### 2.5.4 Final data
+### Final data
 We can add additional data such as customer name, product price using the code below.
 ```{r, eval=TRUE, echo=TRUE, results='markup'}
 df3 <- merge(x = df2, y = customer2name, by.x = "customer", by.y = "customers", all.x = TRUE)
 df4 <- merge(x = df3, y = customer2age, by.x = "customer", by.y = "customers", all.x = TRUE)
 df5 <- merge(x = df4, y = products, by = "SKU", all.x = TRUE)
-dfFinal <- df5[,c("dayNum", "mthNum", "customer", "customerName", "customerAge", "SKU", "Price", "transactionID")]
+dfFinal <- df5[,c("dayNum", "mthNum", "customer", "customerName", "customerAge", "transactionID", "SKU", "Price", "category","subcategory")]
 
 
 #inspect the output
@@ -173,7 +218,7 @@ print(head(dfFinal))
 ```
 Thus, we have the final data set with transactions, customers and products. 
 
-## 2.Interpret the results
+# Interpret the results
 The column names of the final data frame can be interpreted as follows.
   + Each row is a transaction and the data frame has all the transactions for a year i.e 365 days.
   + **transactionID** is the unique identifier for that transaction.
@@ -198,7 +243,6 @@ aggregatedDataMthSorted <- aggregatedDataMth[order(aggregatedDataMth$Group.1),]
 plot(aggregatedDataMthSorted, ann = FALSE)
 ```
 
-
-`r if (knitr::is_html_output()) '## References {-}'`
+`r '## References {-}'`
 
 

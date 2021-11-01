@@ -1,5 +1,8 @@
 
-## conjurer 1.3.0 (2021-17-10)
+## conjurer 1.4.0 (2021-10-31)
+* Added new function buildPattern
+
+## conjurer 1.3.0 (2021-10-17)
 * Added new function buildHierarchy
 
 ## conjurer 1.2.0 (2020-09-06)

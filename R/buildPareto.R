@@ -29,12 +29,12 @@ buildPareto <- function(factor1, factor2, pareto)
   split2 <- pareto[2]*0.01
 
   #split factor1 by the given split
-  factor1sample1 <- sample.int(n = length(factor1Shuffled), size = floor(split1*length(factor1Shuffled)), replace = F)
+  factor1sample1 <- sample.int(n = length(factor1Shuffled), size = floor(split1*length(factor1Shuffled)), replace = FALSE)
   factor1p1 <- factor1Shuffled[factor1sample1]
   factor1p2 <- factor1Shuffled[-factor1sample1]
 
   #split factor2 by the given split
-  factor2sample1 <- sample.int(n = length(factor2Shuffled), size = floor(split1*length(factor2Shuffled)), replace = F)
+  factor2sample1 <- sample.int(n = length(factor2Shuffled), size = floor(split1*length(factor2Shuffled)), replace = FALSE)
   factor2p1 <- factor2Shuffled[factor2sample1]
   factor2p2 <- factor2Shuffled[-factor2sample1]
 

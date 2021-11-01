@@ -1,7 +1,7 @@
 ---
 title: "Introduction to conjurer"
 author: "Sidharth Macherla"
-date: "`r Sys.Date()`"
+date: "2021-10-31"
 bibliography: bibliography.bib
 link-citations: TRUE
 output:
@@ -81,6 +81,26 @@ customer2age <- cbind(customers, custAge)
 print(head(customer2age))
 ```
 
+### Build customer phone number
+A list of customer phone numbers for the 100 customer IDs can be generated in the following way.
+```{r, eval=TRUE, echo=TRUE, results='markup'}
+parts <- list(c("+91","+44","+64"), c("("), c(491,324,211), c(")"), c(7821:8324))
+probs <- list(c(0.25,0.25,0.50), c(1), c(0.30,0.60,0.10), c(1), c())
+custPhoneNumbers <- as.data.frame(buildPattern(n=100,parts = parts, probs = probs))
+head(custPhoneNumbers)
+
+#set column heading
+colnames(custPhoneNumbers) <- c("customerPhone")
+print(head(custPhoneNumbers))
+```
+### Assign customer phone number to customer ID
+Let us assign customer ages to customer IDs. This is a random one to one mapping using the following code.
+```{r, eval=TRUE, echo=TRUE, results='markup'}
+customer2phone <- cbind(customers, custPhoneNumbers)
+#set column heading
+print(head(customer2phone))
+```
+
 ## Build products
 The next step is building some products. A product is identified by a product ID. Similar to a customer ID, a product ID is also an alphanumeric with prefix "sku" which signifies a stock keeping unit. This prefix is followed by a numeric ranging from 1 and extending to the number of products provided as the argument within the function. For example, if there are 10 products, then the product ID will range from sku01 to sku10. This ensures that the product ID is always of the same length.
   Besides product ID, the product price range must be specified. Let us build a group of products using the following code. For simplicity, let us assume that there are 10 products and the price range for them is from 5 dollars to 50 dollars. Products are built using the function buildProd. This function takes 3 arguments as given below.
@@ -124,10 +144,10 @@ print(productHierarchy)
 ```   
 
 ## Build transactions
-Now that a group of customer IDs and Products are built, the next step is to build transactions. Transactions are built using the function genTrans. This function takes 5 arguments. The details of them are as follows.
-
-  + **cylces**. This represents the cyclicality of data. It can take the following values
-    * "y". If cycles is set to the value "y", it means that there is only one instance of a high number of transactions during the entire year. This is a very common situation for some retail clients where the highest number of sales are during the holiday period in December.
+Now that a group of customer IDs and Products are built, the next step is to build transactions. Transactions are built using the function genTrans. This function takes 5 arguments. The details of them are as follows.    
+    
+  * **cylces**. This represents the cyclicality of data. It can take the following values    
+    * "y". If cycles is set to the value "y", it means that there is only one instance of a high number of transactions during the entire year. This is a very common situation for some retail clients where the highest number of sales are during the holiday period in December.    
     * "q". If cycles is set to the value "q", it means that there are 4 instances of a high number of transactions. This is generally noticed in the financial services industry where the financial statements are revised every quarter and have an impact on the equity transactions in the secondary market.
     * "m". If cycles is set to the value "m", it means that there are 12 instances of a high number of transactions for a year. This means that the number of transactions increases once every month and then subside for the rest of the month.
   + **spike**. This represents the seasonality of data. It can take any value from 1 to 12. These numbers represent months in an year, from January to December respectively. For example, if spike is set to 12, it means that December has the highest number of transactions.
@@ -209,8 +229,9 @@ We can add additional data such as customer name, product price using the code b
 ```{r, eval=TRUE, echo=TRUE, results='markup'}
 df3 <- merge(x = df2, y = customer2name, by.x = "customer", by.y = "customers", all.x = TRUE)
 df4 <- merge(x = df3, y = customer2age, by.x = "customer", by.y = "customers", all.x = TRUE)
-df5 <- merge(x = df4, y = products, by = "SKU", all.x = TRUE)
-dfFinal <- df5[,c("dayNum", "mthNum", "customer", "customerName", "customerAge", "transactionID", "SKU", "Price", "category","subcategory")]
+df5 <- merge(x = df4, y = customer2phone, by.x = "customer", by.y = "customers", all.x = TRUE)
+df6 <- merge(x = df5, y = products, by = "SKU", all.x = TRUE)
+dfFinal <- df6[,c("dayNum", "mthNum", "customer", "customerName", "customerAge", "customerPhone", "transactionID", "SKU", "Price", "category","subcategory")]
 
 
 #inspect the output
@@ -219,14 +240,22 @@ print(head(dfFinal))
 Thus, we have the final data set with transactions, customers and products. 
 
 # Interpret the results
-The column names of the final data frame can be interpreted as follows.
-  + Each row is a transaction and the data frame has all the transactions for a year i.e 365 days.
-  + **transactionID** is the unique identifier for that transaction.
-  + **customer** is the unique customer identifier. This is the customer who made that transaction.
-  + **SKU** is the product that was bought in that transaction.
-  + **dayNum** is the day number in the year. There would be 365 unique dayNum in the data frame. 
-  + **mthNum** is the month number. This ranges from 1 to 12 and represents January to December respectively.
-  + **customerName** is name of the customer.
+The column names of the final data frame can be interpreted as follows.   
+    
+  * Each row is a transaction and the data frame has all the transactions for a year i.e 365 days.    
+  * **dayNum** is the day number in the year. There would be 365 unique dayNum in the data frame. 
+  * **mthNum** is the month number. This ranges from 1 to 12 and represents January to December respectively.
+  * **customer** is the unique customer identifier. This is the customer who made that transaction.
+  * **customerName** is name of the customer.
+  * **customerAge** is the age of the customer.
+  * **customerPhone** is the phone number of the customer.
+  * **transactionID** is the unique identifier for that transaction.
+  * **SKU** is the product ID that was bought in that transaction.
+  * **Price** is the price of the product.
+  * **category** is the product category.
+  * **subcategory** is the product subcategory.
+  
+  
 
 Let us visualize the results to understand the data distribution.
 

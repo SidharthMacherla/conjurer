@@ -46,7 +46,7 @@ buildDistr <- function(st, en, cycles, trend, n)
   {
     #randomize trend value within +- 20% range
     coeffs <- seq(from = 0.8, to =1.2, by =0.001)
-    randomCoeff <- sample(coeffs, 1, replace = T)
+    randomCoeff <- sample(coeffs, 1, replace = TRUE)
   }
 
   #generate intercept as a random int between 2 and 5

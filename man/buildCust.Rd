@@ -7,7 +7,7 @@
 buildCust(numOfCust)
 }
 \arguments{
-\item{numOfCust}{A number. This specifies the number of unique customer identifiers to be built.}
+\item{numOfCust}{A natural number. This specifies the number of unique customer identifiers to be built.}
 }
 \value{
 A character with unique customer identifiers

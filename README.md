@@ -4,6 +4,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/52cb239790ab41d2806108140ce36639)](https://app.codacy.com/manual/msidharthrasik/conjurer?utm_source=github.com&utm_medium=referral&utm_content=SidharthMacherla/conjurer&utm_campaign=Badge_Grade_Dashboard)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3687/badge)](https://bestpractices.coreinfrastructure.org/projects/3687)
 [![DOI](https://zenodo.org/badge/228922834.svg)](https://zenodo.org/badge/latestdoi/228922834)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5635615.svg)](https://doi.org/10.5281/zenodo.5635615)
 
 # Documentation
 The official documentation for **conjurer** is at [foyi](https://www.foyi.co.nz/posts/documentation/documentationconjurer/)

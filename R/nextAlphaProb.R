@@ -3,6 +3,7 @@
 #' @param alphaMatrix A table. This table is generated using the \code{\link{genMatrix}} function .
 #' @param currentAlpha A string. This is the alphabet(s) for which the next alphabet is generated.
 #' @param placement A string. This takes one of the two values namely "first" or "all".
+#' @importFrom methods is
 #' @return The next alphabet following the input alphabet(s) passed by the argument \emph{currentAlpha}.
 #' @details The purpose of this function is to generate the next alphabet for a given alphabet(s). This function uses prior probabilities to generate the next alphabet. Although there are two types of input tables passed into the function by using the parameter \emph{alphaMatrix}, the process to generate the next alphabet remains the same as given below.
 #'
@@ -14,7 +15,7 @@ nextAlphaProb <- function(alphaMatrix, currentAlpha, placement)
 {
   #matrixSubsetCur <- alphaMatrix[currentAlpha,]
   tryCatchTest <- try(matrixSubsetCur <- alphaMatrix[currentAlpha,], silent = TRUE)
-  if(class(tryCatchTest) == "try-error")
+  if(methods::is(tryCatchTest, "try-error"))
   {
     nextAlphaFinal <- "doesNotExist"
   }else

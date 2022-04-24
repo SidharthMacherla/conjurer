@@ -1,4 +1,9 @@
 
+## conjurer 1.5.0 (2022-04-25)
+* Added new functions namely buildModelData and extractDf to access uncovr API.
+* Made a change to an internal function namely nextAlphaProb in response to note from R devel build server.
+* The above two changes resulted in dependencies on other packages namely jsonlite, httr and methods.
+
 ## conjurer 1.4.0 (2021-10-31)
 * Added new function buildPattern
 

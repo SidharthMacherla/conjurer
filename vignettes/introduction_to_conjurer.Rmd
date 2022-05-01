@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 # Overview
 ## Background & Motivation
 Data science applications need data to prototype and demonstrate to potential clients. For such purposes, using production data is a possibility. However, it is not always feasible due to legal and/or ethical considerations[@SynDataNeed]. This resulted in a need for generating synthetic data. This need is the key motivator for the package **conjurer**.
-This package is under constant development and the author would update the documentation regularly at [foyi digital library](https://www.foyi.co.nz/posts/documentation/documentationconjurer/)
+This package is under constant development and the author would update the documentation regularly at [FOYI](https://www.foyi.co.nz/posts/documentation/documentationconjurer/) and [uncovr](https://www.foyi.co.nz/posts/documentation/documentationuncovr/)
 
 ## Need for package conjurer
 Data across multiple domains are known to exhibit some form of seasonality, cyclicality and trend. Although there are synthetic data generation packages currently available, they focus primarily on synthetic versions of microdata containing confidential information or for machine learning purposes. There is a need for a more generic synthetic data generation package that helps for multiple purposes such as forecasting, customer segmentation, insight generation etc. This package **conjurer** helps in generating such synthetic data.

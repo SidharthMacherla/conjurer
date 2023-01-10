@@ -1,0 +1,13 @@
+citHeader("To cite conjurer in publications use:")
+
+citEntry(
+  entry    = "Manual",
+  title    = "conjurer: A Parametric Method for Generating Synthetic Data in R",
+  author   = "Sidharth Macherla",
+  year     = "2020",
+  url      = "https://cran.r-project.org/web/packages/conjurer/conjurer.pdf",
+  textVersion = paste("Sidharth Macherla (2020).",
+        "conjurer: A Parametric Method for Generating Synthetic Data in R.",
+        "10.5281/zenodo.3710487"
+  )
+)

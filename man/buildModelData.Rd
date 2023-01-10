@@ -4,7 +4,7 @@
 \alias{buildModelData}
 \title{Generate Synthetic Data using uncovr API}
 \usage{
-buildModelData(numOfObs, numOfVars, key)
+buildModelData(numOfObs, numOfVars, key, modelObj)
 }
 \arguments{
 \item{numOfObs}{A number. This represents the number of observations in the data. In other words, the number of rows of data that are requested to be generated. The \emph{numOfObs} argument must be a non-negative integer and in the current version, this function accepts a range of 100 to 10,000.}
@@ -12,6 +12,8 @@ buildModelData(numOfObs, numOfVars, key)
 \item{numOfVars}{A number. This represents the number of independent variables in the data. In other words, the number of columns besides the dependent variable of data that are requested to be generated. The \emph{numOfVars} argument must be a non-negative integer and in the current version, this function accepts a range of 1 to 100.}
 
 \item{key}{An alpha numeric. This is the subscription key that can be sourced from the developer portal of uncovr API available at \emph{https://foyi.developer.azure-api.net/}.}
+
+\item{modelObj}{Optional argument. A glm or lm model object where both the dependent and independent variables are continuous.}
 }
 \value{
 A json with details such as the requested data, model performance metrics and the model formula.

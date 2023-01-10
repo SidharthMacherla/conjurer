@@ -1,3 +1,5 @@
+## conjurer 1.6.0 (2023-01-08)
+* Updated buildModelData to include a new argument modelObj that sources the model object.
 
 ## conjurer 1.5.0 (2022-04-25)
 * Added new functions namely buildModelData and extractDf to access uncovr API.

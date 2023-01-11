@@ -5,6 +5,7 @@
 #' @return A table. The rows and columns of the table depend on the argument \emph{placement}. A detailed explanation is as given below in the detail section.
 #' @details The purpose of this function is to generate a frequency distribution table of alphabets. There are currently 2 tables that could be generated using this function.
 #' The first table is generated using the internal function \code{\link{genFirstPairs}}. For this, the argument \emph{placement} is assigned the value "first". The rows of the table returned by the function represent the first alphabet of the string and the columns represent the second alphabet. The values in the table represent the number of times the combination is observed i.e the combination of the row and column alphabets.
+#'
 #' The second table is generated using the internal function \code{\link{genTriples}}. For this, the argument \emph{placement} is assigned the value "all". The rows of the table returned by the function represent two consecutive alphabets of the string and the columns represent the third consecutive alphabet. The values in the table represent the number of times the combination is observed i.e the combination of the row and column alphabets.
 
 genMatrix <- function(dframe, placement)

@@ -1,3 +1,6 @@
+## conjurer 1.7.0 (2023-01-15)
+* Updated internal functions related to buildModelData to ensure that argument modelObj is used to source the intercept as well as the range of the independent variables from the model instead of generating randomly.
+
 ## conjurer 1.6.0 (2023-01-08)
 * Updated buildModelData to include a new argument modelObj that sources the model object.
 

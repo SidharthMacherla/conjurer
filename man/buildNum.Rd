@@ -15,7 +15,7 @@ buildNum(n, st, en, disp, outliers)
 
 \item{disp}{A number between \eqn{-(pi/2)} and  \eqn{(pi/2)}. This defines the dispersion of the distribution.}
 
-\item{outliers}{A number. This signifies the presence of outliers. If set to value 1, then outliers are generated randomly. If set to value 0, then no outliers are generated. The presence of outliers is a very common occurrence and hence setting the outliers to 1 is recommended. However, there are instances where outliers are not needed. For example, if the objective of data generation is solely for visualization purposes then outliers may not be needed.}
+\item{outliers}{A number. This signifies the presence of outliers. If set to value 1, then outliers are generated randomly. If set to value 0, then no outliers are generated. The presence of outliers is a very common occurrence and hence setting the outliers to 1 is recommended. However, there are instances where outliers are not needed. For example, if the objective of data generation is solely for visualization purposes then outliers may not be needed. The default value is 1.}
 }
 \value{
 A dataframe

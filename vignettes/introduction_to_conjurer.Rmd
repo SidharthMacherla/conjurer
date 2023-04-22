@@ -1,14 +1,14 @@
 ---
 title: "Introduction to conjurer"
 author: "Sidharth Macherla"
-date: "2021-10-31"
+date: "2023-01-14"
 bibliography: bibliography.bib
 link-citations: TRUE
 output:
   html_document:
-    number_sections: true
+    number_sections: FALSE
 vignette: >
-  %\VignetteIndexEntry{Introduction to conjurer}
+  %\VignetteIndexEntry{Industry Example}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -19,259 +19,109 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
+## Summary {-}
+The package Conjurer offers synthetic data distribution functionality to generate data that seems real. To that extent, the functions in this package help generate distributions in a parametric method. This means that the randomness of the data generation is preserved while allowing the user to define the constraints of the randomness. Such a controlled randomness will aid in the generation of multiple data distributions to simulate real world as well as unrealistic examples of data. This paper provides insights and usage of the functions in a more detailed manner than provided in the manual of the package. This paper presents each function as a sub section and provides an overview of the purpose and details examples with source code.
 
-# Overview
-## Background & Motivation
-Data science applications need data to prototype and demonstrate to potential clients. For such purposes, using production data is a possibility. However, it is not always feasible due to legal and/or ethical considerations[@SynDataNeed]. This resulted in a need for generating synthetic data. This need is the key motivator for the package **conjurer**.
-This package is under constant development and the author would update the documentation regularly at [FOYI](https://www.foyi.co.nz/posts/documentation/documentationconjurer/) and [uncovr](https://www.foyi.co.nz/posts/documentation/documentationuncovr/)
+## Continuous data
+### Description
+The function *buildNum* is used to generate continuous data distribution. The continuous data in the context of this package relates to the float data type and not continuous in the context of signal processing. Although the data distribution generated is a float data type, this can be rounded off to simulate discrete data distribution. At the core, this function uses a modified form of sine curve and therefore lends itself to manipulation such that the dispersion of the data can be skewed on purpose. The dispersion of the data can be controlled by the parameter *disp* which takes a value between *(-pi/2)* and *(pi/2)*. In order to make the data more realistic, the parameter *outliers* can be set to *1*. It must be noted that the outliers may produce results where data could be beyond the range of the data requested i.e. *st* and *en*
+This functionality can be used to generate univariate distributions.   
 
-## Need for package conjurer
-Data across multiple domains are known to exhibit some form of seasonality, cyclicality and trend. Although there are synthetic data generation packages currently available, they focus primarily on synthetic versions of microdata containing confidential information or for machine learning purposes. There is a need for a more generic synthetic data generation package that helps for multiple purposes such as forecasting, customer segmentation, insight generation etc. This package **conjurer** helps in generating such synthetic data.
+### Usage
+The following code illustrates the process of generating continuous data with and without outliers.
 
-# Steps to build synthetic data
-Let us consider an example of generating transactional data for a retail store. The following steps will help in building such data.
+```{r, eval=TRUE, echo=TRUE, results='markup'}
+#invoke library
+library("conjurer")
 
-## Installation
-Install conjurer package by using the following code. Since the package uses base R functions, it does not have any dependencies.
-```{r, eval=FALSE, echo=TRUE}
-install.packages("conjurer")
+set.seed(123)
+continuousData <- buildNum(n = 10, st = 0, en = 1, disp = (pi/3), outliers = 0)
+continuousDataOutlier <- buildNum(n = 10, st = 0, en = 1, disp = (pi/3), outliers = 1)
+par(mfrow=c(1,2)) 
+plot(continuousData)
+plot(continuousDataOutlier)
 ```
 
-## Build customers
-A customer is identified by a unique customer identifier(ID). A customer ID is alphanumeric with prefix "cust" followed by a numeric. This numeric ranges from 1 and extend to the number of customers provided as the argument within the function. For example, if there are 100 customers, then the customer ID will range from cust001 to cust100. This ensures that the customer ID is always of the same length.
-  Let us build a group of customer IDs using the following code. For simplicity, let us assume that there are 100 customers. customer ID is built using the function buildCust. This function takes one argument "numOfCust" that specifies the number of customer IDs to be built.
+## String data
+### Description
+The function *buildName* is used to generate string data. This function uses probabilistic distribution of the alpabet sequences. Unlike more advanced algorithms such as conditional random fields, this function uses a more basic approach of probability of an alphabet given the probability of the alplhabet preceding it. To this extent, the function sources a data frame of string data based on which the posterior probabilities are generated. Since the generation is based on posterior probabilities, there needs to be sufficiently large data frame such that all possible permutations of the alphabets are present. If no data frame is provided, a default data frame of predetermined set of baby names is used.     
+
+### Usage
+The following code illustrates the process of generating of alphabet sequences based on the default data frame provided in the package as well as a mocked up data of three short parts of a ficticious genome sequence.
 ```{r, eval=TRUE, echo=TRUE, results='markup'}
-library(conjurer)
-customers <- buildCust(numOfCust =  100)
-print(head(customers))
+#invoke library
+library("conjurer")
+
+set.seed(123)
+buildNames(numOfNames = 3, minLength = 5, maxLength = 7)
+
+d <- data.frame (first_column  = c("ATGACGAGAGAGAGCA", "ATGACGAGAGAGCAGAGA","TACTGCTCTCTCGTAAATCG"))
+buildNames(dframe=d, numOfNames = 3, minLength = 5, maxLength = 5)
 ```
+*Note: It can be observed that since the data frame of genome sequences is small, the package throws a warning that there is not enough training data*
 
-### Build customer names
-A list of customer names for the 100 customer IDs can be generated in the following way.
+## Alpha Numeric data   
+
+### Description   
+The function *buildId* is used to generate the alphanumeric. In its current state the alphanumeric is a sequence of data with a string prefix followed by an incremental numeric data. This data can be used a unique identifier of an element or in cases of database schema, this can be used as a primary key of a table.
+### Usage   
+The following code illustrates the process of generating a unique specimen id for a given number of elements.
 ```{r, eval=TRUE, echo=TRUE, results='markup'}
-custNames <- as.data.frame(buildNames(numOfNames = 100, minLength = 5, maxLength = 7))
+#invoke library
+library("conjurer")
 
-#set column heading
-colnames(custNames) <- c("customerName")
-print(head(custNames))
-```
-
-### Assign customer name to customer ID
-Let us assign customer names to customer IDs. This is a random one to one mapping using the following code.
-```{r, eval=TRUE, echo=TRUE, results='markup'}
-customer2name <- cbind(customers, custNames)
-#set column heading
-print(head(customer2name))
-```
-
-### Build customer age
-A list of customer ages for the 100 customer IDs can be generated in the following way.
-```{r, eval=TRUE, echo=TRUE, results='markup'}
-custAge <- as.data.frame(round(buildNum(n = 10, st = 23, en = 80, disp = 0.5, outliers = 1)))
-
-#set column heading
-colnames(custAge) <- c("customerAge")
-print(head(custAge))
-```
-### Assign customer age to customer ID
-Let us assign customer ages to customer IDs. This is a random one to one mapping using the following code.
-```{r, eval=TRUE, echo=TRUE, results='markup'}
-customer2age <- cbind(customers, custAge)
-#set column heading
-print(head(customer2age))
-```
-
-### Build customer phone number
-A list of customer phone numbers for the 100 customer IDs can be generated in the following way.
-```{r, eval=TRUE, echo=TRUE, results='markup'}
-parts <- list(c("+91","+44","+64"), c("("), c(491,324,211), c(")"), c(7821:8324))
-probs <- list(c(0.25,0.25,0.50), c(1), c(0.30,0.60,0.10), c(1), c())
-custPhoneNumbers <- as.data.frame(buildPattern(n=100,parts = parts, probs = probs))
-head(custPhoneNumbers)
-
-#set column heading
-colnames(custPhoneNumbers) <- c("customerPhone")
-print(head(custPhoneNumbers))
-```
-### Assign customer phone number to customer ID
-Let us assign customer ages to customer IDs. This is a random one to one mapping using the following code.
-```{r, eval=TRUE, echo=TRUE, results='markup'}
-customer2phone <- cbind(customers, custPhoneNumbers)
-#set column heading
-print(head(customer2phone))
-```
-
-## Build products
-The next step is building some products. A product is identified by a product ID. Similar to a customer ID, a product ID is also an alphanumeric with prefix "sku" which signifies a stock keeping unit. This prefix is followed by a numeric ranging from 1 and extending to the number of products provided as the argument within the function. For example, if there are 10 products, then the product ID will range from sku01 to sku10. This ensures that the product ID is always of the same length.
-  Besides product ID, the product price range must be specified. Let us build a group of products using the following code. For simplicity, let us assume that there are 10 products and the price range for them is from 5 dollars to 50 dollars. Products are built using the function buildProd. This function takes 3 arguments as given below.
-  
-  + numOfProd. This defines the number of product IDs to be generated.
-  + minPrice. This is the minimum value of the price range.
-  + maxPrice. This is the maximum value of the price range.
-
-```{r, eval=TRUE, echo=TRUE, results='markup'}
-products <- buildProd(numOfProd = 10, minPrice = 5, maxPrice = 50)
-print(head(products))
-```
-
-### Build product hierarchy
-The products belong to various categories. Let's start to build the product hierarchy. The 10 products belong to 2 categories namely Food and Non-Food. These categories are further classifed into 4 different sub-categories namely Beverages, Dairy, Sanitary and Household.    
-
-```{r, eval=TRUE, echo=TRUE, results='markup'}
-productHierarchy <- buildHierarchy(type = "equalSplit", splits = 2, numOfLevels = 2)
-print(productHierarchy)
-```
-
-As you can see, the product hierarchy generated has default names for levels and elements. To make it more meaningful, it can be modified as follows.    
-
-```{r, eval=TRUE, echo=TRUE, results='markup'}
-#Rename the dataframe
-names(productHierarchy) <- c("category", "subcategory")
-
-#Replace category with Food and Non-Food
-productHierarchy$category <- gsub("Level_1_element_1", "Food", productHierarchy$category)
-productHierarchy$category <- gsub("Level_1_element_2", "Non-Food", productHierarchy$category)
-
-#Replace subCategories
-productHierarchy$subcategory <- gsub("Level_2_element_1", "Beverages", productHierarchy$subcategory)
-productHierarchy$subcategory <- gsub("Level_2_element_3", "Dairy", productHierarchy$subcategory)
-productHierarchy$subcategory <- gsub("Level_2_element_2", "Sanitary", productHierarchy$subcategory)
-productHierarchy$subcategory <- gsub("Level_2_element_4", "Household", productHierarchy$subcategory)
-
-#Inspect the data to confirm the results 
-productHierarchy <- productHierarchy[order(productHierarchy$category),]
-print(productHierarchy)
-```   
-
-## Build transactions
-Now that a group of customer IDs and Products are built, the next step is to build transactions. Transactions are built using the function genTrans. This function takes 5 arguments. The details of them are as follows.    
-    
-  * **cylces**. This represents the cyclicality of data. It can take the following values    
-    * "y". If cycles is set to the value "y", it means that there is only one instance of a high number of transactions during the entire year. This is a very common situation for some retail clients where the highest number of sales are during the holiday period in December.    
-    * "q". If cycles is set to the value "q", it means that there are 4 instances of a high number of transactions. This is generally noticed in the financial services industry where the financial statements are revised every quarter and have an impact on the equity transactions in the secondary market.
-    * "m". If cycles is set to the value "m", it means that there are 12 instances of a high number of transactions for a year. This means that the number of transactions increases once every month and then subside for the rest of the month.
-  + **spike**. This represents the seasonality of data. It can take any value from 1 to 12. These numbers represent months in an year, from January to December respectively. For example, if spike is set to 12, it means that December has the highest number of transactions.
-  + trend. This represents the slope of data distribution. It can take a value of 1 or -1. 
-    + If the trend is set to value 1, then the aggregated monthly transactions will exhibit an upward trend from January to December and vice versa if it is set to -1.
-  + **outliers**. This signifies the presence of outliers. If set to value 1, then outliers are generated randomly. If set to value 0, then no outliers are generated. The presence of outliers is a very common occurrence and hence setting the outliers to 1 is recommended. However, there are instances where outliers are not needed. For example, if the objective of data generation is solely for visualization purposes then outliers may not be needed.
-  + **transactions**. This represents the number of transactions to be generated.
-
-Let us build transactions using the following code
-```{r, eval=TRUE, echo=TRUE, results='markup'}
-transactions <- genTrans(cycles = "y", spike = 12, outliers = 1, transactions = 10000)
-```
-
-Visualize generated transactions by using 
-```{r, eval=TRUE, echo=TRUE, results='markup'}
-TxnAggregated <- aggregate(transactions$transactionID, by = list(transactions$dayNum), length)
-plot(TxnAggregated, type = "l", ann = FALSE)
-```
-
-## Build final data 
-Bringing customers, products and transactions together is the final step of generating synthetic data. This process entails 3 steps as given below. 
-
-
-### Allocate customers to transactions
-The allocation of transactions is achieved with the help of buildPareto function. This function takes 3 arguments as detailed below.
-
-  + **factor1** and **factor2**. These are factors to be mapped to each other. As the name suggests, they must be of data type factor.
-  + **Pareto**. This defines the percentage allocation and is a numeric data type. This argument takes the form of c(x,y) where x and y are numeric and their sum is 100. If we set Pareto to c(80,20), it then allocates 80 percent of factor1 to 20 percent of factor 2. This is based on a well-known concept of Pareto principle.
-
-Let us now allocate transactions to customers first by using the following code.
-```{r, eval=TRUE, echo=TRUE, results='markup'}
-customer2transaction <- buildPareto(customers, transactions$transactionID, pareto = c(80,20))
-```
-Assign readable names to the output by using the following code.
-```{r, eval=TRUE, echo=TRUE, results='markup'}
-names(customer2transaction) <- c('transactionID', 'customer')
-
-#inspect the output
-print(head(customer2transaction))
-```
-### Allocate products to product hierarchy
-Allocate the products to the product hierarchy. This can be achieved as follows.  
-```{r, eval=TRUE, echo=TRUE, results='markup'}
-#First step is to ensure that the product hierarchy data frame has the same number of rows as number of products.
-category <- productHierarchy$category
-subcategory <- productHierarchy$subcategory
-productHierarchy <- as.data.frame(cbind(category,subcategory,1:nrow(products)))
-
-#Randomly assign the product hierarchy to the products. Ensure that the additional unused variable towards the end is dropped.
-products <- cbind(products, productHierarchy[,c("category","subcategory")])
-#inspect the output
-print(head(products))
+buildId(numOfItems = 3, prefix = "specID")
 ```
 
 
-### Allocate products to transactions
-Now, using similar step as mentioned above, allocate transactions to products using following code.
-```{r, eval=TRUE, echo=TRUE, results='markup'}
-product2transaction <- buildPareto(products$SKU,transactions$transactionID,pareto = c(70,30))
-names(product2transaction) <- c('transactionID', 'SKU')
+## Sequencial data
+### Description
+The function *buildPattern* is used to generate a sequence i.e. a predetermined pattern of data. This function can be considered as an intuitive form of finite state automaton or a regular expression. A pattern is built as a probabilistic combination of *parts*.   
 
-#inspect the output
-print(head(product2transaction))
+### Usage
+The following code illustrates the process of generating a pattern of phone numbers and IP addresses. The *parts* are generated based on the respective probabilities given in the *probs*.    
+```{r, eval=TRUE, echo=TRUE, results='markup'}
+#invoke library
+library("conjurer")
+
+set.seed(123)
+parts <- list(c(172),c("."),c(16:31), c("."), c(0:255), c("."), c(0:255))
+probs <- list(c(), c(),c(),c(), c(), c(), c())
+buildPattern(n=5,parts = parts, probs = probs)
+
+parts <- list(c("+11","+44","+64"), c("-"), c(491,324,211), c(7821:8324))
+probs <- list(c(0.25,0.25,0.50), c(), c(0.30,0.60,0.10), c())
+buildPattern(n=5,parts = parts, probs = probs)
 ```
 
-### Combine customers and transactions data
-The following code brings together transactions, products and customers into one dataframe.
+## Graph data
+### Description
+The function *buildHierarchy* is used to generate graph data i.e. hierarchical data. Based on the number of levels and splits, the tree structure is built. The graph data is then presented in the form of a data frame.
+
+### Usage
+The following code illustrates the process of generating a tree with 2 splits at each node and a depth of three levels.    
 ```{r, eval=TRUE, echo=TRUE, results='markup'}
-df1 <- merge(x = customer2transaction, y = product2transaction, by = "transactionID")
+#invoke library
+library("conjurer")
 
-df2 <- merge(x = df1, y = transactions, by = "transactionID", all.x = TRUE)
+buildHierarchy(splits = 2, numOfLevels = 3)
 
-#inspect the output
-print(head(df2))
 ```
 
-### Final data
-We can add additional data such as customer name, product price using the code below.
+## Relationship data
+### Description
+The function *buildPareto* is used to map data elements to each other. This function helps in mapping or linking variables. Such a linking or mapping helps in multiple use cases such as build a data frame from a set of variables, building data distribution of one variable in relation to another.
+
+### Usage
+The following code illustrates the process of generating a mapping between two factors such that 30 percent of one factor is linked to 70 percent of another factor.    
 ```{r, eval=TRUE, echo=TRUE, results='markup'}
-df3 <- merge(x = df2, y = customer2name, by.x = "customer", by.y = "customers", all.x = TRUE)
-df4 <- merge(x = df3, y = customer2age, by.x = "customer", by.y = "customers", all.x = TRUE)
-df5 <- merge(x = df4, y = customer2phone, by.x = "customer", by.y = "customers", all.x = TRUE)
-df6 <- merge(x = df5, y = products, by = "SKU", all.x = TRUE)
-dfFinal <- df6[,c("dayNum", "mthNum", "customer", "customerName", "customerAge", "customerPhone", "transactionID", "SKU", "Price", "category","subcategory")]
+#invoke library
+library("conjurer")
+set.seed(123)
+f1 <- factor(c(1:10))
+f2 <- factor(letters[1:12], labels = "f")
 
+buildPareto(factor1 = f1, factor2 = f2, pareto = c(70,30))
 
-#inspect the output
-print(head(dfFinal))
 ```
-Thus, we have the final data set with transactions, customers and products. 
-
-# Interpret the results
-The column names of the final data frame can be interpreted as follows.   
-    
-  * Each row is a transaction and the data frame has all the transactions for a year i.e 365 days.    
-  * **dayNum** is the day number in the year. There would be 365 unique dayNum in the data frame. 
-  * **mthNum** is the month number. This ranges from 1 to 12 and represents January to December respectively.
-  * **customer** is the unique customer identifier. This is the customer who made that transaction.
-  * **customerName** is name of the customer.
-  * **customerAge** is the age of the customer.
-  * **customerPhone** is the phone number of the customer.
-  * **transactionID** is the unique identifier for that transaction.
-  * **SKU** is the product ID that was bought in that transaction.
-  * **Price** is the price of the product.
-  * **category** is the product category.
-  * **subcategory** is the product subcategory.
-  
-  
-
-Let us visualize the results to understand the data distribution.
-
-Below is a view of the sum of transactions by each day.
-```{r, eval=TRUE, echo=TRUE, results='markup'}
-aggregatedDataDay <- aggregate(dfFinal$transactionID, by = list(dfFinal$dayNum), length)
-plot(aggregatedDataDay, type = "l", ann = FALSE)
-```
-
-Below is a view of the sum of transactions by each month.
-```{r, eval=TRUE, echo=TRUE, results='markup'}
-aggregatedDataMth <- aggregate(dfFinal$transactionID, by = list(dfFinal$mthNum), length)
-aggregatedDataMthSorted <- aggregatedDataMth[order(aggregatedDataMth$Group.1),]
-plot(aggregatedDataMthSorted, ann = FALSE)
-```
-
-`r '## References {-}'`
-
 

@@ -3,7 +3,7 @@
 #' @param st A number. This defines the starting value of the number of data points.
 #' @param en A number. This defines the ending value of the number of data points.
 #' @param disp A number between \eqn{-(pi/2)} and  \eqn{(pi/2)}. This defines the dispersion of the distribution.
-#' @param outliers A number. This signifies the presence of outliers. If set to value 1, then outliers are generated randomly. If set to value 0, then no outliers are generated. The presence of outliers is a very common occurrence and hence setting the outliers to 1 is recommended. However, there are instances where outliers are not needed. For example, if the objective of data generation is solely for visualization purposes then outliers may not be needed.
+#' @param outliers A number. This signifies the presence of outliers. If set to value 1, then outliers are generated randomly. If set to value 0, then no outliers are generated. The presence of outliers is a very common occurrence and hence setting the outliers to 1 is recommended. However, there are instances where outliers are not needed. For example, if the objective of data generation is solely for visualization purposes then outliers may not be needed. The default value is 1.
 #' @return A dataframe
 #' @details This function helps in generating numeric data such as age, height, weight etc. This function could be used along with other functions such as \code{\link{buildCust}} to make it more meaningful. The data distribution function uses the formulation of
 #' \deqn{sin((r*a)*x) + c}

@@ -6,7 +6,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5635615.svg)](https://doi.org/10.5281/zenodo.5635615)
 
 # Documentation
-The official documentation for **conjurer** is at [foyi](https://www.foyi.co.nz/posts/documentation/documentationconjurer/)
+The official documentation for **conjurer** is at [foyi](https://foyi.co.nz/documentation-of-r-package-conjurer/)
 
 # Feedback
 Please share your feedback and feature requests by filling in this [2 question survey](https://forms.gle/eyUskvvZqcYwG6C16)
